@@ -545,9 +545,15 @@
         const customPrompts = options.customPrompts || [];
         renderCustomPrompts(customPrompts);
 
-        // Peupler le select de type d'analyse par défaut avec les prompts système ET personnalisés
+        // ✨ CRITIQUE : Peupler le select de type d'analyse par défaut avec les prompts système ET personnalisés
         const availableSystemPrompts =
           filterAvailableSystemPrompts(systemPrompts);
+        logger.info(
+          "🎯 Prompts système disponibles:",
+          Object.keys(availableSystemPrompts)
+        );
+        logger.info("🎨 Prompts personnalisés:", customPrompts.length);
+
         await populateDefaultAnalysisTypeSelect(
           availableSystemPrompts,
           customPrompts,
@@ -1235,6 +1241,12 @@
       customPrompts,
       selectedDefault
     ) {
+      logger.info("🔧 populateDefaultAnalysisTypeSelect() appelée avec:", {
+        systemPrompts: Object.keys(availableSystemPrompts),
+        customPrompts: customPrompts.length,
+        selectedDefault: selectedDefault,
+        selectExists: !!defaultAnalysisTypeSelect,
+      });
       if (!defaultAnalysisTypeSelect) return;
 
       // Vider le select
