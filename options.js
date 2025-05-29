@@ -430,12 +430,10 @@
           promptExplanation.value =
             systemPrompts.explanation || DEFAULT_PROMPTS.explanation;
 
-        // Charger les prompts personnalisés
-        // Charger les prompts personnalisés
         const customPrompts = options.customPrompts || [];
         renderCustomPrompts(customPrompts);
 
-        // Peupler le select de type d'analyse par défaut
+        // Peupler le select de type d'analyse par défaut avec les prompts système ET personnalisés
         const availableSystemPrompts =
           filterAvailableSystemPrompts(systemPrompts);
         await populateDefaultAnalysisTypeSelect(
@@ -805,6 +803,19 @@
 
         renderCustomPrompts(customPrompts);
 
+        // Mettre à jour le select de type d'analyse par défaut
+        const currentSystemPrompts = await browserAPI.storage.sync.get([
+          "systemPrompts",
+        ]);
+        const availableSystemPrompts = filterAvailableSystemPrompts(
+          currentSystemPrompts.systemPrompts || {}
+        );
+        await populateDefaultAnalysisTypeSelect(
+          availableSystemPrompts,
+          customPrompts,
+          defaultAnalysisTypeSelect.value || "summary"
+        );
+
         newPromptTitle.value = "";
         newPromptContent.value = "";
 
@@ -836,6 +847,19 @@
           });
 
           renderCustomPrompts(filteredPrompts);
+
+          // Mettre à jour le select de type d'analyse par défaut
+          const currentSystemPrompts = await browserAPI.storage.sync.get([
+            "systemPrompts",
+          ]);
+          const availableSystemPrompts = filterAvailableSystemPrompts(
+            currentSystemPrompts.systemPrompts || {}
+          );
+          await populateDefaultAnalysisTypeSelect(
+            availableSystemPrompts,
+            filteredPrompts,
+            defaultAnalysisTypeSelect.value || "summary"
+          );
 
           showMessage("🗑️ Prompt supprimé avec succès!", "success");
           logger.info("✅ Prompt personnalisé supprimé:", promptId);
