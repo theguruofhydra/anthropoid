@@ -56,10 +56,10 @@
      ======================================== */
 :root[data-theme="dark"] {
   /* Couleurs de fond */
-  --bg-primary: #0f172a;
-  --bg-secondary: #1e293b;
-  --bg-muted: #334155;
-  --bg-info: #1e3a8a;
+  --bg-primary: #2b2a33;
+  --bg-secondary: #3c3b44;
+  --bg-muted: #4d4c55;
+  --bg-info: #3c3b44;
   --bg-success: #064e3b;
   --bg-warning: #92400e;
   --bg-error: #7f1d1d;
@@ -91,8 +91,9 @@
   --shadow-modal: 0 20px 60px rgba(0, 0, 0, 0.8);
 
   /* Autres */
+  /* Autres */
   --backdrop-blur: rgba(0, 0, 0, 0.85);
-  --overlay-color: rgba(15, 23, 42, 0.95);
+  --overlay-color: rgba(43, 42, 51, 0.95);
 }
 /* ========================================
      THÈME AUTOMATIQUE - SUIT FIREFOX
@@ -100,10 +101,10 @@
 @media (prefers-color-scheme: dark) {
   :root[data-theme="auto"] {
     /* Couleurs de fond */
-    --bg-primary: #1f2937;
-    --bg-secondary: #111827;
-    --bg-muted: #374151;
-    --bg-info: #1e3a8a;
+    --bg-primary: #2b2a33;
+    --bg-secondary: #3c3b44;
+    --bg-muted: #4d4c55;
+    --bg-info: #3c3b44;
     --bg-success: #064e3b;
     --bg-warning: #92400e;
     --bg-error: #7f1d1d;
@@ -136,7 +137,7 @@
 
     /* Autres */
     --backdrop-blur: rgba(0, 0, 0, 0.8);
-    --overlay-color: rgba(31, 41, 55, 0.9);
+    --overlay-color: rgba(43, 42, 51, 0.9);
   }
 }
 
