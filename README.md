@@ -1,5 +1,7 @@
-# 🧠 Anthropoïd
-
+<h1 align="left">
+  <img src="icons/icon-64.png" alt="Anthropoïd Icon" width="32" style="vertical-align: middle;"/>
+  Anthropoïd
+</h1>
 **Firefox extension to analyze web content using Claude AI — Videos, PDFs, web pages, text selections, and more.**
 
 ---
