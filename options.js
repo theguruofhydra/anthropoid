@@ -46,6 +46,92 @@
       "Explique ce contenu de manière simple et accessible, comme si tu t'adressais à un débutant.",
   };
 
+  async function populateDefaultAnalysisTypeSelect(
+    availableSystemPrompts,
+    customPrompts,
+    selectedDefault
+  ) {
+    logger.info("🔧 populateDefaultAnalysisTypeSelect() appelée avec:", {
+      systemPrompts: Object.keys(availableSystemPrompts),
+      customPrompts: customPrompts.length,
+      selectedDefault: selectedDefault,
+      selectExists: !!defaultAnalysisTypeSelect,
+    });
+    if (!defaultAnalysisTypeSelect) return;
+
+    // Vider le select
+    defaultAnalysisTypeSelect.innerHTML = "";
+
+    // Mapping des prompts système par défaut avec leurs infos d'affichage
+    const defaultAnalysisTypes = [
+      {
+        value: "summary",
+        text: "📝 Résumé complet",
+        i18n: "analysisTypeSummary",
+      },
+      {
+        value: "key_points",
+        text: "🎯 Points clés",
+        i18n: "analysisTypeKeyPoints",
+      },
+      {
+        value: "analysis",
+        text: "🔍 Analyse détaillée",
+        i18n: "analysisTypeAnalysis",
+      },
+      {
+        value: "questions",
+        text: "❓ Questions/Réponses",
+        i18n: "analysisTypeQuestions",
+      },
+      {
+        value: "translation",
+        text: "🌍 Traduction",
+        i18n: "analysisTypeTranslation",
+      },
+      {
+        value: "explanation",
+        text: "💡 Explication simple",
+        i18n: "analysisTypeExplanation",
+      },
+    ];
+
+    // Ajouter seulement les prompts système disponibles (non supprimés)
+    defaultAnalysisTypes.forEach((analysisType) => {
+      if (availableSystemPrompts[analysisType.value]) {
+        const option = document.createElement("option");
+        option.value = analysisType.value;
+        option.textContent = analysisType.text;
+        option.setAttribute("data-i18n", analysisType.i18n);
+        defaultAnalysisTypeSelect.appendChild(option);
+      }
+    });
+
+    // Ajouter les prompts personnalisés
+    customPrompts.forEach((prompt) => {
+      const option = document.createElement("option");
+      option.value = `custom_${prompt.id}`;
+      option.textContent = `🎨 ${prompt.title}`;
+      defaultAnalysisTypeSelect.appendChild(option);
+    });
+
+    // Sélectionner la valeur par défaut
+    if (
+      selectedDefault &&
+      Array.from(defaultAnalysisTypeSelect.options).some(
+        (opt) => opt.value === selectedDefault
+      )
+    ) {
+      defaultAnalysisTypeSelect.value = selectedDefault;
+    } else {
+      defaultAnalysisTypeSelect.value = "summary";
+    }
+
+    logger.info(
+      `✅ Select de type d'analyse par défaut peuplé avec valeur: ${defaultAnalysisTypeSelect.value}`
+    );
+  }
+
   // Fonction d'internationalisation
   function i18n(key, params = {}) {
     let message = chrome.i18n.getMessage(key, params);
@@ -1234,92 +1320,6 @@
       const div = document.createElement("div");
       div.textContent = text;
       return div.innerHTML;
-    }
-
-    async function populateDefaultAnalysisTypeSelect(
-      availableSystemPrompts,
-      customPrompts,
-      selectedDefault
-    ) {
-      logger.info("🔧 populateDefaultAnalysisTypeSelect() appelée avec:", {
-        systemPrompts: Object.keys(availableSystemPrompts),
-        customPrompts: customPrompts.length,
-        selectedDefault: selectedDefault,
-        selectExists: !!defaultAnalysisTypeSelect,
-      });
-      if (!defaultAnalysisTypeSelect) return;
-
-      // Vider le select
-      defaultAnalysisTypeSelect.innerHTML = "";
-
-      // Mapping des prompts système par défaut avec leurs infos d'affichage
-      const defaultAnalysisTypes = [
-        {
-          value: "summary",
-          text: "📝 Résumé complet",
-          i18n: "analysisTypeSummary",
-        },
-        {
-          value: "key_points",
-          text: "🎯 Points clés",
-          i18n: "analysisTypeKeyPoints",
-        },
-        {
-          value: "analysis",
-          text: "🔍 Analyse détaillée",
-          i18n: "analysisTypeAnalysis",
-        },
-        {
-          value: "questions",
-          text: "❓ Questions/Réponses",
-          i18n: "analysisTypeQuestions",
-        },
-        {
-          value: "translation",
-          text: "🌍 Traduction",
-          i18n: "analysisTypeTranslation",
-        },
-        {
-          value: "explanation",
-          text: "💡 Explication simple",
-          i18n: "analysisTypeExplanation",
-        },
-      ];
-
-      // Ajouter seulement les prompts système disponibles (non supprimés)
-      defaultAnalysisTypes.forEach((analysisType) => {
-        if (availableSystemPrompts[analysisType.value]) {
-          const option = document.createElement("option");
-          option.value = analysisType.value;
-          option.textContent = analysisType.text;
-          option.setAttribute("data-i18n", analysisType.i18n);
-          defaultAnalysisTypeSelect.appendChild(option);
-        }
-      });
-
-      // Ajouter les prompts personnalisés
-      customPrompts.forEach((prompt) => {
-        const option = document.createElement("option");
-        option.value = `custom_${prompt.id}`;
-        option.textContent = `🎨 ${prompt.title}`;
-        defaultAnalysisTypeSelect.appendChild(option);
-      });
-
-      // Sélectionner la valeur par défaut
-      if (
-        selectedDefault &&
-        Array.from(defaultAnalysisTypeSelect.options).some(
-          (opt) => opt.value === selectedDefault
-        )
-      ) {
-        defaultAnalysisTypeSelect.value = selectedDefault;
-      } else {
-        defaultAnalysisTypeSelect.value = "summary";
-      }
-
-      logger.info(
-        `✅ Select de type d'analyse par défaut peuplé avec valeur: ${defaultAnalysisTypeSelect.value}`
-      );
     }
 
     // Fonctions utilitaires
