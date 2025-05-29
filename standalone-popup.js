@@ -354,17 +354,45 @@
       // Déterminer le type d'analyse à utiliser par priorité
       let targetAnalysisType = "summary"; // Fallback final
 
-      // 1. Priorité : analysisData (données spécifiques à cette analyse)
+      // 1. Priorité ABSOLUE : analysisData spécifique à cette analyse (menu contextuel)
       if (analysisData.analysisType && analysisData.analysisType !== "custom") {
         targetAnalysisType = analysisData.analysisType;
+        logger.info(
+          `🎯 Type d'analyse depuis analysisData: ${targetAnalysisType}`
+        );
       }
-      // 2. Sinon : préférences utilisateur par défaut
+      // 2. Sinon : préférences utilisateur par défaut (configuré dans les options)
       else if (preferences && preferences.defaultAnalysisType) {
         targetAnalysisType = preferences.defaultAnalysisType;
+        logger.info(
+          `⚙️ Type d'analyse depuis préférences: ${targetAnalysisType}`
+        );
+      }
+      // 3. Fallback pour compatibilité ancien nom
+      else if (preferences && preferences.summaryLength) {
+        targetAnalysisType = preferences.summaryLength;
+        logger.info(
+          `⚙️ Type d'analyse depuis summaryLength (ancien): ${targetAnalysisType}`
+        );
       }
 
+      // Appliquer le type d'analyse déterminé
       if (analysisTypeSelect) {
-        analysisTypeSelect.value = targetAnalysisType;
+        // Vérifier que l'option existe dans le select
+        const optionExists = Array.from(analysisTypeSelect.options).some(
+          (option) => option.value === targetAnalysisType
+        );
+
+        if (optionExists) {
+          analysisTypeSelect.value = targetAnalysisType;
+          logger.info(`✅ Type d'analyse sélectionné: ${targetAnalysisType}`);
+        } else {
+          // Fallback vers "summary" si le type par défaut n'existe pas
+          analysisTypeSelect.value = "summary";
+          logger.info(
+            `⚠️ Type d'analyse ${targetAnalysisType} non disponible, utilisation de "summary"`
+          );
+        }
       }
 
       if (analysisData.analysisType && analysisData.analysisType !== "custom") {
@@ -421,6 +449,9 @@
       if (analysisData.language && languageSelect) {
         languageSelect.value = analysisData.language;
       }
+
+      // Déclencher le changement pour mettre à jour l'interface
+      handleAnalysisTypeChange();
     }
 
     async function checkApiConfiguration() {
@@ -464,7 +495,8 @@
               keys: [
                 "claudeModel",
                 "summaryLanguage",
-                "defaultAnalysisType",
+                "defaultAnalysisType", // Nouveau nom prioritaire
+                "summaryLength", // Ancien nom pour compatibilité
                 "customPrompts",
                 "systemPrompts",
               ],
@@ -600,6 +632,9 @@
       logger.info(
         `✅ ${availableSystemPromptsCount} prompts système disponibles et ${customPrompts.length} prompts personnalisés chargés`
       );
+
+      // Retourner les préférences pour utilisation dans setupAnalysisInterface
+      return preferences;
     }
 
     async function performAnalysis() {

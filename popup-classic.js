@@ -186,8 +186,8 @@
               keys: [
                 "claudeModel",
                 "summaryLanguage",
-                "summaryLength",
-                "defaultAnalysisType",
+                "summaryLength", // Ancien nom pour compatibilité
+                "defaultAnalysisType", // Nouveau nom
                 "customPrompts",
                 "systemPrompts",
               ],
@@ -225,20 +225,42 @@
           if (languageSelect) {
             languageSelect.value = preferences.summaryLanguage || "fr";
           }
-          if (analysisTypeSelect) {
-            // Utiliser defaultAnalysisType si disponible, sinon summaryLength, sinon "summary"
-            const defaultType =
-              preferences.defaultAnalysisType ||
-              preferences.summaryLength ||
-              "summary";
-            analysisTypeSelect.value = defaultType;
-          }
 
           // Charger les prompts personnalisés ET filtrer les prompts système
           await loadCustomPrompts(
             preferences.customPrompts || [],
             preferences.systemPrompts || {}
           );
+
+          // IMPORTANT: Sélectionner le type d'analyse par défaut APRÈS avoir chargé les prompts
+          if (analysisTypeSelect) {
+            // Priorité: defaultAnalysisType > summaryLength (ancien nom) > "summary"
+            const defaultType =
+              preferences.defaultAnalysisType ||
+              preferences.summaryLength ||
+              "summary";
+
+            // Vérifier que l'option existe dans le select
+            const optionExists = Array.from(analysisTypeSelect.options).some(
+              (option) => option.value === defaultType
+            );
+
+            if (optionExists) {
+              analysisTypeSelect.value = defaultType;
+              logger.info(
+                `✅ Type d'analyse par défaut sélectionné: ${defaultType}`
+              );
+            } else {
+              // Fallback vers "summary" si le type par défaut n'existe pas
+              analysisTypeSelect.value = "summary";
+              logger.info(
+                `⚠️ Type d'analyse par défaut ${defaultType} non disponible, utilisation de "summary"`
+              );
+            }
+
+            // Déclencher le changement pour mettre à jour l'interface
+            handleAnalysisTypeChange();
+          }
         }
       } catch (error) {
         logger.error("❌ Erreur chargement préférences:", error);
