@@ -359,13 +359,8 @@
         targetAnalysisType = analysisData.analysisType;
       }
       // 2. Sinon : préférences utilisateur par défaut
-      else if (
-        response &&
-        response.success &&
-        response.data &&
-        response.data.defaultAnalysisType
-      ) {
-        targetAnalysisType = response.data.defaultAnalysisType;
+      else if (preferences && preferences.defaultAnalysisType) {
+        targetAnalysisType = preferences.defaultAnalysisType;
       }
 
       if (analysisTypeSelect) {
