@@ -134,6 +134,34 @@
     await loadOptions();
 
     // Event listeners de base
+    if (claudeModelSelect) {
+      claudeModelSelect.addEventListener("change", saveAutoSettings);
+      logger.info("🔄 Auto-save pour modèle Claude activé");
+    }
+
+    if (summaryLanguageSelect) {
+      summaryLanguageSelect.addEventListener("change", saveAutoSettings);
+      logger.info("🔄 Auto-save pour langue activé");
+    }
+
+    if (defaultAnalysisTypeSelect) {
+      defaultAnalysisTypeSelect.addEventListener("change", saveAutoSettings);
+      logger.info("🔄 Auto-save pour type d'analyse par défaut activé");
+    }
+
+    if (themeSelect) {
+      themeSelect.addEventListener("change", async (e) => {
+        await handleThemeChange();
+        await saveAutoSettings();
+      });
+      logger.info("🔄 Auto-save pour thème activé");
+    }
+
+    if (debugModeCheckbox) {
+      debugModeCheckbox.addEventListener("change", saveAutoSettings);
+      logger.info("🔄 Auto-save pour mode debug activé");
+    }
+
     if (form) {
       form.addEventListener("submit", saveOptions);
       logger.info("📋 Form listener ajouté");
@@ -450,6 +478,60 @@
       }
     }
 
+    // Fonction de sauvegarde automatique pour les paramètres de base
+    async function saveAutoSettings() {
+      try {
+        logger.info("💾 Sauvegarde automatique des paramètres...");
+
+        const options = {
+          claudeModel: claudeModelSelect
+            ? claudeModelSelect.value
+            : "claude-3-5-sonnet-20241022",
+          summaryLanguage: summaryLanguageSelect
+            ? summaryLanguageSelect.value
+            : "fr",
+          defaultAnalysisType: defaultAnalysisTypeSelect
+            ? defaultAnalysisTypeSelect.value
+            : "summary",
+          theme: themeSelect ? themeSelect.value : "auto",
+          debugMode:
+            debugModeCheckbox && debugModeCheckbox.checked
+              ? "verbose"
+              : "normal",
+        };
+
+        // Récupérer les données existantes pour ne pas les écraser
+        const existingData = await browserAPI.storage.sync.get([
+          "claudeApiKey",
+          "pipedApiUrl",
+          "customPrompts",
+          "systemPrompts",
+        ]);
+
+        // Fusionner avec les données existantes
+        const finalOptions = { ...existingData, ...options };
+
+        logger.info("📋 Paramètres à sauvegarder automatiquement:", options);
+
+        // Sauvegarder dans storage.sync
+        await browserAPI.storage.sync.set(finalOptions);
+
+        // Sauvegarder aussi dans storage.local pour redondance
+        await browserAPI.storage.local.set(finalOptions);
+
+        logger.info("✅ Sauvegarde automatique réussie");
+
+        // Afficher un feedback discret
+        showAutoSaveMessage(
+          "✅ Paramètres sauvegardés automatiquement",
+          "success"
+        );
+      } catch (error) {
+        logger.error("❌ Erreur sauvegarde automatique:", error);
+        showAutoSaveMessage("⚠️ Erreur de sauvegarde", "error");
+      }
+    }
+
     async function saveOptions(e) {
       e.preventDefault();
       logger.info("💾 Tentative de sauvegarde...");
@@ -552,71 +634,153 @@
       }
     }
 
-    async function testClaudeApi() {
-      logger.info("🧪 Test de l'API Claude...");
+    async function testPipedApi() {
+      logger.info("🔗 Test de l'API Piped...");
 
-      const apiKey = claudeApiKeyInput ? claudeApiKeyInput.value.trim() : "";
+      const apiUrl = pipedApiUrlInput ? pipedApiUrlInput.value.trim() : "";
 
-      if (!apiKey) {
-        showClaudeTestResult(i18n("errorApiKeyRequired"), "error");
-        updateTestButtonState(testApiBtn, "error", "🧪 Test");
+      if (!apiUrl) {
+        showPipedTestResult(i18n("errorPipedUrlRequired"), "error");
+        updateTestButtonState(testPipedBtn, "error", "🔗 Test");
         return;
       }
 
-      if (testApiBtn) {
-        updateTestButtonState(testApiBtn, "loading", "🔄 Test...");
+      if (testPipedBtn) {
+        updateTestButtonState(testPipedBtn, "loading", "🔄 Test...");
       }
 
       try {
-        const response = await fetch("https://api.anthropic.com/v1/messages", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "x-api-key": apiKey,
-            "anthropic-version": "2023-06-01",
-            "anthropic-dangerous-direct-browser-access": "true",
-          },
-          body: JSON.stringify({
-            model: "claude-3-haiku-20240307",
-            max_tokens: 50,
-            messages: [
-              {
-                role: "user",
-                content: i18n("testPrompt"),
-              },
-            ],
-          }),
-        });
+        const testVideoId = "dQw4w9WgXcQ";
+        let testUrl = apiUrl;
+
+        if (!testUrl.endsWith("/api")) {
+          if (!testUrl.endsWith("/")) {
+            testUrl += "/api";
+          } else {
+            testUrl += "api";
+          }
+        }
+
+        const response = await fetch(`${testUrl}/streams/${testVideoId}`);
 
         if (response.ok) {
           const data = await response.json();
-          logger.info("✅ Test API réussi:", data);
-          showClaudeTestResult(i18n("claudeApiWorking"), "success");
-          updateTestButtonState(testApiBtn, "success", "✅ Test");
-        } else {
-          const errorText = await response.text();
-          logger.error("❌ Erreur API:", response.status, errorText);
-          showClaudeTestResult(
-            i18n("apiError") + `: ${response.status} ${response.statusText}`,
-            "error"
+          logger.info("✅ Test API Piped réussi:", data);
+          showPipedTestResult(
+            i18n("pipedApiWorking") +
+              ` ${i18n("videoFound")}: "${
+                data.title || i18n("titleAvailable")
+              }"`,
+            "success"
           );
-          updateTestButtonState(testApiBtn, "error", "❌ Test");
+          updateTestButtonState(testPipedBtn, "success", "✅ Test");
+
+          // ✨ NOUVEAU : Sauvegarde automatique si le test réussit
+          await savePipedApiUrlAutomatically(apiUrl);
+        } else {
+          if (response.status === 404) {
+            showPipedTestResult(
+              i18n("pipedApiAccessible") +
+                ` (${response.status}). ${i18n("apiSeemsFunctional")}.`,
+              "success"
+            );
+            updateTestButtonState(testPipedBtn, "success", "✅ Test");
+
+            // ✨ NOUVEAU : Sauvegarde automatique même en cas de 404 (API fonctionnelle)
+            await savePipedApiUrlAutomatically(apiUrl);
+          } else if (response.status === 502) {
+            showPipedTestResult(i18n("error502Message"), "error");
+            updateTestButtonState(testPipedBtn, "error", "❌ Test");
+          } else if (response.status >= 500) {
+            showPipedTestResult(
+              i18n("serverError") +
+                ` ${response.status} - ${i18n("serverErrorMessage")}`,
+              "error"
+            );
+            updateTestButtonState(testPipedBtn, "error", "❌ Test");
+          } else {
+            showPipedTestResult(
+              i18n("pipedApiError") +
+                `: ${response.status} ${response.statusText}`,
+              "error"
+            );
+            updateTestButtonState(testPipedBtn, "error", "❌ Test");
+          }
         }
       } catch (error) {
-        logger.error("❌ Erreur connexion:", error);
-        showClaudeTestResult(
-          i18n("connectionError") + `: ${error.message}`,
-          "error"
-        );
-        updateTestButtonState(testApiBtn, "error", "❌ Test");
+        logger.error("❌ Erreur connexion Piped:", error);
+        if (error.message.includes("CORS")) {
+          showPipedTestResult(i18n("corsWarning"), "success");
+          updateTestButtonState(testPipedBtn, "success", "✅ Test");
+
+          // ✨ NOUVEAU : Sauvegarde automatique même en cas de CORS (API fonctionnelle)
+          await savePipedApiUrlAutomatically(apiUrl);
+        } else {
+          showPipedTestResult(
+            i18n("connectionError") + `: ${error.message}`,
+            "error"
+          );
+          updateTestButtonState(testPipedBtn, "error", "❌ Test");
+        }
       } finally {
         if (
-          testApiBtn &&
-          !testApiBtn.classList.contains("test-success") &&
-          !testApiBtn.classList.contains("test-error")
+          testPipedBtn &&
+          !testPipedBtn.classList.contains("test-success") &&
+          !testPipedBtn.classList.contains("test-error")
         ) {
-          updateTestButtonState(testApiBtn, "default", "🧪 Test");
+          updateTestButtonState(testPipedBtn, "default", "🔗 Test");
         }
+      }
+    }
+
+    async function saveApiKeyAutomatically(apiKey) {
+      try {
+        logger.info("🔐 Sauvegarde automatique de la clé API...");
+
+        // Récupérer les paramètres existants
+        const existingData = await browserAPI.storage.sync.get();
+
+        // Ajouter la clé API
+        const updatedData = { ...existingData, claudeApiKey: apiKey };
+
+        // Sauvegarder
+        await browserAPI.storage.sync.set(updatedData);
+        await browserAPI.storage.local.set(updatedData);
+
+        logger.info("✅ Clé API sauvegardée automatiquement");
+        showAutoSaveMessage("🔐 Clé API Claude sauvegardée", "success");
+
+        // Mettre à jour le statut
+        updateApiKeyStatus();
+      } catch (error) {
+        logger.error("❌ Erreur sauvegarde automatique clé API:", error);
+        showAutoSaveMessage("⚠️ Erreur sauvegarde clé API", "error");
+      }
+    }
+
+    // Nouvelle fonction pour sauvegarder automatiquement l'URL Piped
+    async function savePipedApiUrlAutomatically(apiUrl) {
+      try {
+        logger.info("🔗 Sauvegarde automatique de l'URL Piped...");
+
+        // Récupérer les paramètres existants
+        const existingData = await browserAPI.storage.sync.get();
+
+        // Ajouter l'URL Piped
+        const updatedData = { ...existingData, pipedApiUrl: apiUrl };
+
+        // Sauvegarder
+        await browserAPI.storage.sync.set(updatedData);
+        await browserAPI.storage.local.set(updatedData);
+
+        logger.info("✅ URL Piped sauvegardée automatiquement");
+        showAutoSaveMessage("🔗 URL API Piped sauvegardée", "success");
+
+        // Mettre à jour le statut
+        updateApiUrlStatus();
+      } catch (error) {
+        logger.error("❌ Erreur sauvegarde automatique URL Piped:", error);
+        showAutoSaveMessage("⚠️ Erreur sauvegarde URL Piped", "error");
       }
     }
 
@@ -752,6 +916,56 @@
           showMessage(i18n("errorClearing") + ": " + error.message, "error");
         }
       }
+    }
+
+    function showAutoSaveMessage(text, type) {
+      // Créer ou réutiliser un élément de notification discrète
+      let autoSaveMsg = document.getElementById("autoSaveMessage");
+
+      if (!autoSaveMsg) {
+        autoSaveMsg = document.createElement("div");
+        autoSaveMsg.id = "autoSaveMessage";
+        autoSaveMsg.style.cssText = `
+          position: fixed;
+          top: 20px;
+          right: 20px;
+          padding: 8px 12px;
+          border-radius: 6px;
+          font-size: 12px;
+          font-weight: 600;
+          z-index: 10000;
+          transition: all 0.3s ease;
+          opacity: 0;
+          transform: translateX(100%);
+          pointer-events: none;
+        `;
+        document.body.appendChild(autoSaveMsg);
+      }
+
+      // Définir le style selon le type
+      if (type === "success") {
+        autoSaveMsg.style.backgroundColor = "#d1fae5";
+        autoSaveMsg.style.color = "#065f46";
+        autoSaveMsg.style.border = "1px solid #a7f3d0";
+      } else {
+        autoSaveMsg.style.backgroundColor = "#fee2e2";
+        autoSaveMsg.style.color = "#991b1b";
+        autoSaveMsg.style.border = "1px solid #fecaca";
+      }
+
+      autoSaveMsg.textContent = text;
+
+      // Animer l'entrée
+      requestAnimationFrame(() => {
+        autoSaveMsg.style.opacity = "1";
+        autoSaveMsg.style.transform = "translateX(0)";
+      });
+
+      // Auto-masquer après 2 secondes
+      setTimeout(() => {
+        autoSaveMsg.style.opacity = "0";
+        autoSaveMsg.style.transform = "translateX(100%)";
+      }, 2000);
     }
 
     // Fonctions pour la section avancée
