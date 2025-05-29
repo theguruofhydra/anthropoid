@@ -645,6 +645,12 @@
         return;
       }
 
+      if (!apiUrl.startsWith("http")) {
+        showPipedTestResult(i18n("errorPipedUrlFormat"), "error");
+        updateTestButtonState(testPipedBtn, "error", "🔗 Test");
+        return;
+      }
+
       if (testPipedBtn) {
         updateTestButtonState(testPipedBtn, "loading", "🔄 Test...");
       }
@@ -723,13 +729,16 @@
           updateTestButtonState(testPipedBtn, "error", "❌ Test");
         }
       } finally {
-        if (
-          testPipedBtn &&
-          !testPipedBtn.classList.contains("test-success") &&
-          !testPipedBtn.classList.contains("test-error")
-        ) {
-          updateTestButtonState(testPipedBtn, "default", "🔗 Test");
-        }
+        // Restaurer le bouton après 3 secondes si pas de succès/erreur
+        setTimeout(() => {
+          if (
+            testPipedBtn &&
+            !testPipedBtn.classList.contains("test-success") &&
+            !testPipedBtn.classList.contains("test-error")
+          ) {
+            updateTestButtonState(testPipedBtn, "default", "🔗 Test");
+          }
+        }, 3000);
       }
     }
 
