@@ -482,6 +482,8 @@
     }
 
     async function loadDefaultPreferences() {
+      let preferences = {}; // Déclarer preferences au début de la fonction
+
       try {
         // Peupler le select des modèles avec les modèles détectés
         if (modelSelect) {
@@ -506,7 +508,7 @@
         });
 
         if (response && response.success) {
-          const preferences = response.data || {};
+          preferences = response.data || {};
 
           if (modelSelect && preferences.claudeModel) {
             // Sélectionner le modèle sauvegardé s'il existe
