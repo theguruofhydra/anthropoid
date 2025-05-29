@@ -2,9 +2,11 @@
   <img src="icons/icon-64.png" alt="Anthropoïd Icon" width="32" style="vertical-align: middle;"/>
   Anthropoïd
 </h1>
-**Firefox extension to analyze web content using Claude AI — Videos, PDFs, web pages, text selections, and more.**
+<p>
+  <b>Firefox extension to analyze web content using Claude AI — Videos, PDFs, web pages, text selections, and more.</b>
+</p>
 
----
+#
 
 ## 🚧 v0.9 Beta – Early Preview Release  
 > ⚠️ This is a beta version and may contain bugs.
