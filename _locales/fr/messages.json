@@ -1,0 +1,1055 @@
+{
+  "extensionName": {
+    "message": "Anthropoïd",
+    "description": "Nom de l'extension"
+  },
+  "extensionDescription": {
+    "message": "Analyseur de contenu avec Claude AI - Vidéos, PDFs, pages web et plus",
+    "description": "Description de l'extension"
+  },
+
+  "popupTitle": {
+    "message": "Anthropoïd - Analyse de contenu",
+    "description": "Titre du popup"
+  },
+  "popupSubtitle": {
+    "message": "Analyse intelligente avec Claude AI",
+    "description": "Sous-titre du popup"
+  },
+
+  "analyzeVideo": {
+    "message": "📝 Analyser la vidéo",
+    "description": "Bouton principal d'analyse"
+  },
+  "options": {
+    "message": "⚙️ Options",
+    "description": "Bouton options"
+  },
+  "videoDetected": {
+    "message": "📺 Vidéo détectée:",
+    "description": "Label quand une vidéo est détectée"
+  },
+  "loading": {
+    "message": "Chargement...",
+    "description": "Message de chargement"
+  },
+  "analyzingText": {
+    "message": "Analyse en cours...",
+    "description": "Texte analyse en cours"
+  },
+
+  "claudeModel": {
+    "message": "Modèle Claude:",
+    "description": "Label sélecteur de modèle"
+  },
+  "claudeHaiku": {
+    "message": "Claude 3 Haiku (rapide, économique)",
+    "description": "Option modèle Haiku"
+  },
+  "claudeSonnet": {
+    "message": "Claude 3.5 Sonnet (équilibré)",
+    "description": "Option modèle Sonnet"
+  },
+  "claudeOpus": {
+    "message": "Claude 3 Opus (le plus puissant)",
+    "description": "Option modèle Opus"
+  },
+
+  "summaryLanguage": {
+    "message": "Langue du résumé:",
+    "description": "Label sélecteur de langue"
+  },
+  "responseLanguageLabel": {
+    "message": "Langue de réponse:",
+    "description": "Label langue de réponse"
+  },
+  "french": {
+    "message": "Français",
+    "description": "Option langue française"
+  },
+  "english": {
+    "message": "English",
+    "description": "Option langue anglaise"
+  },
+  "spanish": {
+    "message": "Español",
+    "description": "Option langue espagnole"
+  },
+  "german": {
+    "message": "Deutsch",
+    "description": "Option langue allemande"
+  },
+  "italian": {
+    "message": "Italiano",
+    "description": "Option langue italienne"
+  },
+
+  "precisionLevel": {
+    "message": "Niveau de précision:",
+    "description": "Label sélecteur de précision"
+  },
+  "analysisTypeLabel": {
+    "message": "Type d'analyse:",
+    "description": "Label type d'analyse"
+  },
+  "analysisTypeSummary": {
+    "message": "📝 Résumé complet",
+    "description": "Type d'analyse résumé"
+  },
+  "analysisTypeKeyPoints": {
+    "message": "🎯 Points clés",
+    "description": "Type d'analyse points clés"
+  },
+  "analysisTypeAnalysis": {
+    "message": "🔍 Analyse détaillée",
+    "description": "Type d'analyse détaillée"
+  },
+  "analysisTypeQuestions": {
+    "message": "❓ Questions/Réponses",
+    "description": "Type d'analyse questions"
+  },
+  "analysisTypeTranslation": {
+    "message": "🌍 Traduction",
+    "description": "Type d'analyse traduction"
+  },
+  "analysisTypeExplanation": {
+    "message": "💡 Explication simple",
+    "description": "Type d'analyse explication"
+  },
+  "analysisTypeCustom": {
+    "message": "🎨 Personnalisé",
+    "description": "Type d'analyse personnalisé"
+  },
+
+  "precisionShort": {
+    "message": "Court (2-3 phrases)",
+    "description": "Option précision courte"
+  },
+  "precisionMedium": {
+    "message": "Moyen (4-6 phrases)",
+    "description": "Option précision moyenne"
+  },
+  "precisionLong": {
+    "message": "Détaillé (7-10 phrases)",
+    "description": "Option précision longue"
+  },
+  "precisionVeryLong": {
+    "message": "Très détaillé (sans limite, précis)",
+    "description": "Option précision très longue"
+  },
+  "precisionCustom": {
+    "message": "Personnalisé (votre propre prompt)",
+    "description": "Option prompt personnalisé"
+  },
+
+  "customPromptLabel": {
+    "message": "Votre prompt personnalisé:",
+    "description": "Label textarea prompt personnalisé"
+  },
+  "customRequestLabel": {
+    "message": "Votre demande personnalisée:",
+    "description": "Label demande personnalisée"
+  },
+  "customPromptPlaceholder": {
+    "message": "Décrivez comment vous voulez que la vidéo soit résumée. Par exemple: 'Fais un résumé technique avec tous les détails sur les algorithmes mentionnés' ou 'Résume en tant que critique de cinéma'...",
+    "description": "Placeholder textarea prompt personnalisé"
+  },
+  "customRequestPlaceholder": {
+    "message": "Décrivez ce que vous voulez que Claude fasse avec ce contenu...",
+    "description": "Placeholder demande personnalisée"
+  },
+  "customPromptHelp": {
+    "message": "💡 Vous pouvez demander un style spécifique, focus sur certains aspects, format particulier, etc.",
+    "description": "Aide pour le prompt personnalisé"
+  },
+  "customRequestHelp": {
+    "message": "💡 Exemple: \"Analyse ce contenu du point de vue d'un expert en marketing\" ou \"Extrais les informations techniques importantes\"",
+    "description": "Aide demande personnalisée"
+  },
+
+  "copyMarkdown": {
+    "message": "Copier en Markdown",
+    "description": "Bouton copier markdown"
+  },
+  "copyText": {
+    "message": "Copier en texte brut",
+    "description": "Bouton copier texte"
+  },
+  "copyMarkdownShort": {
+    "message": "Copier en Markdown",
+    "description": "Bouton copier markdown version courte"
+  },
+  "copyTextShort": {
+    "message": "Copier en texte brut",
+    "description": "Bouton copier texte version courte"
+  },
+  "markdownCopied": {
+    "message": "✅ Markdown copié!",
+    "description": "Confirmation copie markdown"
+  },
+  "textCopied": {
+    "message": "✅ Texte brut copié!",
+    "description": "Confirmation copie texte"
+  },
+
+  "analyzeBtnText": {
+    "message": "🚀 Analyser",
+    "description": "Texte bouton analyser"
+  },
+  "resultTitle": {
+    "message": "📝 Résultat de l'analyse",
+    "description": "Titre résultat"
+  },
+  "backToSource": {
+    "message": "← Retour à l'onglet source",
+    "description": "Bouton retour source"
+  },
+
+  "continueConversation": {
+    "message": "Continuer dans un nouvel onglet",
+    "description": "Bouton continuer conversation"
+  },
+  "continueConversationShort": {
+    "message": "Continuer dans un nouvel onglet",
+    "description": "Bouton continuer conversation version courte"
+  },
+  "continueConversationTitle": {
+    "message": "Continuer dans un nouvel onglet",
+    "description": "Titre continuer conversation"
+  },
+  "continueConversationPlaceholder": {
+    "message": "Posez une question ou demandez des précisions sur l'analyse...",
+    "description": "Placeholder continuation conversation"
+  },
+  "clearConversation": {
+    "message": "🗑️ Effacer",
+    "description": "Bouton effacer conversation"
+  },
+  "sendMessage": {
+    "message": "📤 Envoyer",
+    "description": "Bouton envoyer message"
+  },
+  "keyboardShortcut": {
+    "message": "💡 Entrée pour envoyer, Alt+Entrée pour nouvelle ligne",
+    "description": "Aide raccourci clavier"
+  },
+
+  "contentPreviewPrefix": {
+    "message": "Aperçu du contenu:",
+    "description": "Préfixe aperçu contenu"
+  },
+
+  "helpToggle": {
+    "message": "💡 Comment utiliser",
+    "description": "Bouton toggle aide"
+  },
+  "helpStep1": {
+    "message": "1. Naviguez vers une vidéo sur Piped ou YouTube",
+    "description": "Étape 1 de l'aide"
+  },
+  "helpStep2": {
+    "message": "2. Choisissez le modèle, la langue et la précision",
+    "description": "Étape 2 de l'aide"
+  },
+  "helpStep3": {
+    "message": "3. Cliquez sur \"Analyser la vidéo\"",
+    "description": "Étape 3 de l'aide"
+  },
+  "helpStep4": {
+    "message": "4. Le résumé s'affichera ci-dessous",
+    "description": "Étape 4 de l'aide"
+  },
+  "helpTip": {
+    "message": "Conseil",
+    "description": "Label conseil"
+  },
+  "helpTipText": {
+    "message": "Utilisez \"Personnalisé\" pour des demandes spécifiques comme \"résume du point de vue technique\" ou \"focus sur les exemples pratiques\".",
+    "description": "Texte du conseil"
+  },
+  "hideHelp": {
+    "message": "Ne plus afficher cette aide",
+    "description": "Checkbox masquer aide"
+  },
+
+  "statusApiNotConfigured": {
+    "message": "⚠️ Clé API Claude non configurée. Cliquez sur Options.",
+    "description": "Erreur API non configurée"
+  },
+  "statusPipedNotConfigured": {
+    "message": "⚠️ URL API Piped non configurée (nécessaire seulement pour Piped). Cliquez sur Options.",
+    "description": "Erreur Piped non configuré"
+  },
+  "statusDetectingVideo": {
+    "message": "🔍 Détection de la vidéo...",
+    "description": "Détection vidéo en cours"
+  },
+  "statusDetectingContent": {
+    "message": "🔍 Détection du contenu...",
+    "description": "Statut détection contenu"
+  },
+  "statusVideoDetected": {
+    "message": "✅ Vidéo détectée - Prêt à analyser",
+    "description": "Vidéo détectée avec succès"
+  },
+  "statusReadyToAnalyze": {
+    "message": "✅ Prêt à analyser",
+    "description": "Statut prêt à analyser"
+  },
+  "statusNoVideo": {
+    "message": "⚠️ Aucune vidéo détectée. Assurez-vous d'être sur une page /watch de Piped ou YouTube.",
+    "description": "Aucune vidéo détectée"
+  },
+  "statusExtractingSubtitles": {
+    "message": "📥 Extraction des sous-titres...",
+    "description": "Extraction sous-titres"
+  },
+  "statusAnalyzingContent": {
+    "message": "Analyse du contenu...",
+    "description": "Statut analyse contenu"
+  },
+  "statusAnalyzingSelection": {
+    "message": "📝 Analyse de la sélection...",
+    "description": "Statut analyse sélection"
+  },
+  "statusExtractingPDF": {
+    "message": "📄 Extraction du texte PDF...",
+    "description": "Statut extraction PDF"
+  },
+  "statusGeneratingSummary": {
+    "message": "Génération du résumé avec Claude...",
+    "description": "Génération résumé"
+  },
+  "statusSummaryGenerated": {
+    "message": "✅ Résumé généré avec succès!",
+    "description": "Résumé généré"
+  },
+  "statusAnalysisComplete": {
+    "message": "✅ Analyse terminée!",
+    "description": "Statut analyse terminée"
+  },
+
+  "optionsTitle": {
+    "message": "Configuration de l'extension 👆",
+    "description": "Titre page options"
+  },
+  "configurationRequired": {
+    "message": "🔐 Configuration requise",
+    "description": "Section configuration requise"
+  },
+  "claudeApiKeyLabel": {
+    "message": "1. Clé API Claude :",
+    "description": "Label clé API Claude"
+  },
+  "claudeApiKeyDescription": {
+    "message": "Rendez-vous sur console.anthropic.com, créez un compte et générez une clé API",
+    "description": "Description clé API Claude"
+  },
+  "pipedApiUrlLabel": {
+    "message": "2. URL API Piped (optionnel):",
+    "description": "Label URL API Piped"
+  },
+  "pipedApiUrlDescription": {
+    "message": "L'URL de l'API de votre instance Piped (les instances publiques ont de grandes chances de ne pas fonctionner)",
+    "description": "Description URL API Piped"
+  },
+
+  "claudeApiKeyField": {
+    "message": "Clé API Claude:",
+    "description": "Champ clé API"
+  },
+  "pipedApiUrlField": {
+    "message": "URL de l'API Piped:",
+    "description": "Champ URL API"
+  },
+  "claudeModelDefault": {
+    "message": "Modèle Claude par défaut:",
+    "description": "Sélecteur modèle par défaut"
+  },
+  "summaryLanguageDefault": {
+    "message": "Langue du résumé par défaut:",
+    "description": "Sélecteur langue par défaut"
+  },
+  "precisionLevelDefault": {
+    "message": "Niveau de précision par défaut:",
+    "description": "Sélecteur précision par défaut"
+  },
+
+  "claudeApiKeyHelp": {
+    "message": "Votre clé API est stockée localement",
+    "description": "Aide clé API"
+  },
+  "pipedApiUrlHelp": {
+    "message": "URL de l'API de votre instance Piped (Optionnel)",
+    "description": "Aide URL Piped"
+  },
+  "modelSelectionHelp": {
+    "message": "Haiku est le plus rapide, Sonnet offre le meilleur équilibre, Opus est le plus intelligent mais plus lent",
+    "description": "Aide sélection modèle"
+  },
+  "defaultSettingsHelp": {
+    "message": "Ces paramètres seront utilisés par défaut dans le popup, mais vous pourrez les modifier à chaque utilisation",
+    "description": "Aide paramètres par défaut"
+  },
+
+  "saveSettings": {
+    "message": "💾 Sauvegarder",
+    "description": "Bouton sauvegarder"
+  },
+  "testClaudeApi": {
+    "message": "🔄 Test",
+    "description": "Bouton tester Claude"
+  },
+  "testPipedApi": {
+    "message": "🔄 Test",
+    "description": "Bouton tester Piped"
+  },
+  "clearData": {
+    "message": "🗑️ Effacer les données",
+    "description": "Bouton effacer données"
+  },
+
+  "testApisTitle": {
+    "message": "🧪 Test des APIs",
+    "description": "Titre section test"
+  },
+  "testApisDescription": {
+    "message": "Utilisez ces boutons pour vérifier que vos APIs fonctionnent correctement.",
+    "description": "Description section test"
+  },
+
+  "apiKeyNotConfigured": {
+    "message": "❌ Non configurée",
+    "description": "API non configurée"
+  },
+  "pipedapiNotConfigured": {
+    "message": "⚠️ Non configurée",
+    "description": "API non configurée"
+  },
+  "apiKeyValidFormat": {
+    "message": "✅ Format valide",
+    "description": "Format API valide"
+  },
+  "apiKeyInvalidFormat": {
+    "message": "⚠️ Format invalide",
+    "description": "Format API invalide"
+  },
+  "urlValidFormat": {
+    "message": "✅ Format valide",
+    "description": "Format URL valide"
+  },
+  "urlInvalidFormat": {
+    "message": "⚠️ Doit commencer par http:// ou https://",
+    "description": "Format URL invalide"
+  },
+
+  "settingsSaved": {
+    "message": "✅ Options sauvegardées avec succès!",
+    "description": "Sauvegarde réussie"
+  },
+  "claudeApiWorking": {
+    "message": "✅ API Claude fonctionne correctement!",
+    "description": "Test Claude réussi"
+  },
+  "pipedApiWorking": {
+    "message": "✅ API Piped fonctionne correctement!",
+    "description": "Test Piped réussi"
+  },
+  "dataCleared": {
+    "message": "🗑️ Toutes les données ont été effacées",
+    "description": "Données effacées"
+  },
+  "confirmClearData": {
+    "message": "⚠️ Êtes-vous sûr de vouloir effacer toutes les données ? Cette action est irréversible.",
+    "description": "Confirmation effacement"
+  },
+
+  "errorApiKeyRequired": {
+    "message": "Veuillez entrer votre clé API Claude",
+    "description": "Erreur clé API requise"
+  },
+  "errorPipedUrlRequired": {
+    "message": "Veuillez entrer l'URL de l'API Piped",
+    "description": "Erreur URL Piped requise"
+  },
+  "errorApiKeyFormat": {
+    "message": "Format de clé API invalide. La clé doit commencer par \"sk-ant-api\"",
+    "description": "Erreur format clé API"
+  },
+  "errorPipedUrlFormat": {
+    "message": "URL API Piped invalide. Elle doit commencer par \"http://\" ou \"https://\"",
+    "description": "Erreur format URL Piped"
+  },
+  "errorCustomPromptRequired": {
+    "message": "❌ Veuillez entrer votre prompt personnalisé",
+    "description": "Erreur prompt personnalisé requis"
+  },
+  "errorCopyMarkdown": {
+    "message": "❌ Impossible de copier le markdown",
+    "description": "Erreur copie markdown"
+  },
+  "errorCopyText": {
+    "message": "❌ Impossible de copier le texte",
+    "description": "Erreur copie texte"
+  },
+  "errorNoSelection": {
+    "message": "❌ Aucun texte sélectionné ou texte trop court",
+    "description": "Erreur pas de sélection"
+  },
+  "errorInsufficientContent": {
+    "message": "❌ Contenu insuffisant trouvé sur cette page",
+    "description": "Erreur contenu insuffisant"
+  },
+  "errorPDFExtraction": {
+    "message": "❌ Impossible d'extraire le texte du PDF. Assurez-vous que le PDF contient du texte sélectionnable.",
+    "description": "Erreur extraction PDF"
+  },
+  "errorContentScript": {
+    "message": "❌ Content script non disponible. Rechargez la page et réessayez.",
+    "description": "Erreur content script"
+  },
+
+  "noVideoDetected": {
+    "message": "Aucune vidéo détectée sur cette page",
+    "description": "Aucune vidéo détectée"
+  },
+  "noSubtitlesAvailable": {
+    "message": "Aucun sous-titre disponible pour cette vidéo",
+    "description": "Pas de sous-titres"
+  },
+  "contentScriptNotAvailable": {
+    "message": "Content script non disponible. Rechargez la page et réessayez.",
+    "description": "Content script indisponible"
+  },
+  "analysisUnavailable": {
+    "message": "❌ Analyse non disponible - vidéo non détectée",
+    "description": "Analyse indisponible"
+  },
+
+  "testingInProgress": {
+    "message": "🔄 Test en cours...",
+    "description": "Test en progès"
+  },
+  "testPrompt": {
+    "message": "Bonjour, peux-tu répondre par \"Test réussi!\" ?",
+    "description": "Prompt de test"
+  },
+  "apiError": {
+    "message": "❌ Erreur de API",
+    "description": "Erreur de API"
+  },
+  "connectionError": {
+    "message": "❌ Erreur de connexion",
+    "description": "Erreur de connexion"
+  },
+  "videoFound": {
+    "message": "Vidéo trouvée",
+    "description": "Vidéo trouvée"
+  },
+  "titleAvailable": {
+    "message": "Titre disponible",
+    "description": "Titre disponible"
+  },
+  "pipedApiAccessible": {
+    "message": "⚠️ API accessible mais vidéo de test non trouvée",
+    "description": "API Piped accessible"
+  },
+  "apiSeemsFunctional": {
+    "message": "L'API semble fonctionnelle",
+    "description": "API semble fonctionnelle"
+  },
+  "error502Message": {
+    "message": "❌ Erreur 502 - L'instance Piped est temporairement indisponible. Essayez plus tard ou changez d'instance.",
+    "description": "Message erreur 502"
+  },
+  "serverError": {
+    "message": "❌ Erreur du serveur",
+    "description": "Erreur du serveur"
+  },
+  "serverErrorMessage": {
+    "message": "L'instance Piped a un problème. Essayez une autre instance.",
+    "description": "Message erreur serveur"
+  },
+  "pipedApiError": {
+    "message": "❌ Erreur API Piped",
+    "description": "Erreur API Piped"
+  },
+  "corsWarning": {
+    "message": "⚠️ Erreur CORS - L'API semble valide mais bloque les requêtes cross-origin. Cela devrait fonctionner dans l'extension.",
+    "description": "Avertissement CORS"
+  },
+  "errorLoadingOptions": {
+    "message": "Erreur chargement options",
+    "description": "Erreur chargement options"
+  },
+  "errorSaving": {
+    "message": "Erreur sauvegarde",
+    "description": "Erreur sauvegarde"
+  },
+  "errorClearing": {
+    "message": "Erreur effacement données",
+    "description": "Erreur effacement données"
+  },
+
+  "versionInfo": {
+    "message": "Anthropoïd v$1",
+    "description": "Information version"
+  },
+  "credits": {
+    "message": "Made with 👆 by theguruofhydra",
+    "description": "Crédits"
+  },
+
+  "pipedApiUrlPlaceholder": {
+    "message": "https://votre-instance-piped.com/api",
+    "description": "Placeholder URL API Piped"
+  },
+
+  "advancedConfiguration": {
+    "message": "⚙️ Configuration avancée",
+    "description": "Titre configuration avancée"
+  },
+  "defaultPromptsSection": {
+    "message": "📝 Prompts par défaut du système",
+    "description": "Section prompts par défaut"
+  },
+  "promptShortLabel": {
+    "message": "Prompt \"Court\" :",
+    "description": "Label prompt court"
+  },
+  "promptMediumLabel": {
+    "message": "Prompt \"Moyen\" :",
+    "description": "Label prompt moyen"
+  },
+  "promptLongLabel": {
+    "message": "Prompt \"Détaillé\" :",
+    "description": "Label prompt détaillé"
+  },
+  "promptVeryLongLabel": {
+    "message": "Prompt \"Très détaillé\" :",
+    "description": "Label prompt très détaillé"
+  },
+
+  "resetPromptsSection": {
+    "message": "⚠️ Restaurer les prompts par défaut",
+    "description": "Section restaurer prompts"
+  },
+  "resetPromptsDescription": {
+    "message": "Ceci restaurera tous les prompts système aux valeurs d'origine de l'extension.",
+    "description": "Description restaurer prompts"
+  },
+  "resetPromptsButton": {
+    "message": "🔄 Restaurer les prompts par défaut",
+    "description": "Bouton restaurer prompts"
+  },
+
+  "customPromptsSection": {
+    "message": "🎨 Vos prompts personnalisés",
+    "description": "Section prompts personnalisés"
+  },
+  "customPromptsDescription": {
+    "message": "Ajoutez vos propres prompts",
+    "description": "Description prompts personnalisés"
+  },
+  "addPromptSection": {
+    "message": "➕ Ajouter un nouveau prompt",
+    "description": "Section ajouter prompt"
+  },
+  "newPromptTitleLabel": {
+    "message": "Titre du prompt :",
+    "description": "Label titre nouveau prompt"
+  },
+  "newPromptTitlePlaceholder": {
+    "message": "Titre du prompt",
+    "description": "Placeholder titre prompt"
+  },
+  "newPromptContentLabel": {
+    "message": "Contenu du prompt :",
+    "description": "Label contenu prompt"
+  },
+  "newPromptContentPlaceholder": {
+    "message": "Décrivez comment vous voulez que la vidéo soit analysée...",
+    "description": "Placeholder contenu prompt"
+  },
+  "addPromptButton": {
+    "message": "➕ Ajouter",
+    "description": "Bouton ajouter prompt"
+  },
+  "updatePromptButton": {
+    "message": "💾 Mettre à jour",
+    "description": "Bouton mettre à jour prompt"
+  },
+  "editPromptButton": {
+    "message": "✏️ Modifier",
+    "description": "Bouton modifier prompt"
+  },
+  "deletePromptButton": {
+    "message": "🗑️ Supprimer",
+    "description": "Bouton supprimer prompt"
+  },
+
+  "noCustomPrompts": {
+    "message": "Aucun prompt personnalisé. Utilisez le formulaire ci-dessous pour en créer un.",
+    "description": "Message aucun prompt personnalisé"
+  },
+
+  "errorPromptTitleRequired": {
+    "message": "❌ Veuillez entrer un titre pour le prompt",
+    "description": "Erreur titre prompt requis"
+  },
+  "errorPromptContentRequired": {
+    "message": "❌ Veuillez entrer le contenu du prompt",
+    "description": "Erreur contenu prompt requis"
+  },
+  "errorPromptTitleExists": {
+    "message": "❌ Un prompt avec ce titre existe déjà",
+    "description": "Erreur titre prompt existe"
+  },
+  "errorPromptTitleExistsOther": {
+    "message": "❌ Un autre prompt avec ce titre existe déjà",
+    "description": "Erreur titre prompt existe autre"
+  },
+  "errorPromptNotFound": {
+    "message": "❌ Prompt introuvable",
+    "description": "Erreur prompt introuvable"
+  },
+  "errorAllFieldsRequired": {
+    "message": "❌ Veuillez remplir tous les champs",
+    "description": "Erreur tous champs requis"
+  },
+
+  "promptAddedSuccess": {
+    "message": "✅ Prompt \"{title}\" ajouté avec succès!",
+    "description": "Confirmation prompt ajouté"
+  },
+  "promptUpdatedSuccess": {
+    "message": "✅ Prompt \"{title}\" mis à jour avec succès!",
+    "description": "Confirmation prompt mis à jour"
+  },
+  "promptDeletedSuccess": {
+    "message": "🗑️ Prompt supprimé avec succès!",
+    "description": "Confirmation prompt supprimé"
+  },
+  "promptsResetSuccess": {
+    "message": "✅ Prompts par défaut restaurés avec succès!",
+    "description": "Confirmation prompts restaurés"
+  },
+
+  "confirmDeletePrompt": {
+    "message": "⚠️ Êtes-vous sûr de vouloir supprimer ce prompt ? Cette action est irréversible.",
+    "description": "Confirmation suppression prompt"
+  },
+  "confirmResetPrompts": {
+    "message": "⚠️ Êtes-vous sûr de vouloir restaurer tous les prompts aux valeurs par défaut ? Cette action est irréversible.",
+    "description": "Confirmation restauration prompts"
+  },
+
+  "errorAddingPrompt": {
+    "message": "❌ Erreur lors de l'ajout:",
+    "description": "Erreur ajout prompt"
+  },
+  "errorUpdatingPrompt": {
+    "message": "❌ Erreur lors de la mise à jour:",
+    "description": "Erreur mise à jour prompt"
+  },
+  "errorDeletingPrompt": {
+    "message": "❌ Erreur lors de la suppression:",
+    "description": "Erreur suppression prompt"
+  },
+  "errorEditingPrompt": {
+    "message": "❌ Erreur lors de l'édition:",
+    "description": "Erreur édition prompt"
+  },
+  "errorResettingPrompts": {
+    "message": "❌ Erreur lors de la restauration:",
+    "description": "Erreur restauration prompts"
+  },
+
+  "universalAnalyzer": {
+    "message": "🌐 Analyseur universel",
+    "description": "Nom de l'analyseur universel"
+  },
+  "analyzePage": {
+    "message": "📄 Analyser cette page",
+    "description": "Bouton analyser page"
+  },
+  "analyzeSelection": {
+    "message": "📝 Analyser la sélection",
+    "description": "Bouton analyser sélection"
+  },
+  "analyzePDF": {
+    "message": "📄 Analyser le PDF",
+    "description": "Bouton analyser PDF"
+  },
+
+  "contentTypeWebpage": {
+    "message": "🌐 Page web",
+    "description": "Type de contenu page web"
+  },
+  "contentTypeVideo": {
+    "message": "🎬 Vidéo",
+    "description": "Type de contenu vidéo"
+  },
+  "contentTypePDF": {
+    "message": "📄 PDF",
+    "description": "Type de contenu PDF"
+  },
+  "contentTypeSelection": {
+    "message": "📝 Sélection",
+    "description": "Type de contenu sélection"
+  },
+
+  "modePageEntire": {
+    "message": "🌐 Page entière",
+    "description": "Mode page entière"
+  },
+  "modeSelection": {
+    "message": "📝 Sélection",
+    "description": "Mode sélection"
+  },
+  "modeVideo": {
+    "message": "🎬 Vidéo",
+    "description": "Mode vidéo"
+  },
+  "modePDF": {
+    "message": "📄 PDF complet",
+    "description": "Mode PDF"
+  },
+
+  "quickActionSummary": {
+    "message": "📝 Résumer",
+    "description": "Action rapide résumer"
+  },
+  "quickActionKeyPoints": {
+    "message": "🎯 Points clés",
+    "description": "Action rapide points clés"
+  },
+  "quickActionTranslate": {
+    "message": "🌍 Traduire",
+    "description": "Action rapide traduire"
+  },
+  "quickActionExplain": {
+    "message": "💡 Expliquer",
+    "description": "Action rapide expliquer"
+  },
+
+  "noTextSelected": {
+    "message": "Aucun texte sélectionné. Sélectionnez du texte sur la page et revenez ici.",
+    "description": "Message pas de texte sélectionné"
+  },
+  "charactersCount": {
+    "message": "{count}k caractères",
+    "description": "Compteur de caractères"
+  },
+
+  "helpUniversalTitle": {
+    "message": "💡 Guide d'utilisation",
+    "description": "Titre aide universelle"
+  },
+  "helpModesTitle": {
+    "message": "🎯 Modes d'analyse :",
+    "description": "Titre modes d'analyse"
+  },
+  "helpModePageDescription": {
+    "message": "• Page entière : Analyse tout le contenu visible",
+    "description": "Description mode page"
+  },
+  "helpModeSelectionDescription": {
+    "message": "• Sélection : Analyse uniquement le texte sélectionné",
+    "description": "Description mode sélection"
+  },
+  "helpModeVideoDescription": {
+    "message": "• Vidéo : Analyse les sous-titres (YouTube/Piped)",
+    "description": "Description mode vidéo"
+  },
+  "helpContentTypesTitle": {
+    "message": "📄 Types de contenu supportés :",
+    "description": "Titre types de contenu"
+  },
+  "helpContentWebpages": {
+    "message": "• Pages web classiques",
+    "description": "Aide pages web"
+  },
+  "helpContentPDFs": {
+    "message": "• PDFs avec texte sélectionnable",
+    "description": "Aide PDFs"
+  },
+  "helpContentVideos": {
+    "message": "• Vidéos YouTube et Piped",
+    "description": "Aide vidéos"
+  },
+  "helpContentArticles": {
+    "message": "• Articles et blogs",
+    "description": "Aide articles"
+  },
+  "helpQuickActionsTitle": {
+    "message": "🔥 Actions rapides :",
+    "description": "Titre actions rapides"
+  },
+  "helpQuickActionsDescription": {
+    "message": "Cliquez sur les boutons rapides pour une analyse instantanée !",
+    "description": "Description actions rapides"
+  },
+  "helpCustomizationTitle": {
+    "message": "🎨 Personnalisation :",
+    "description": "Titre personnalisation"
+  },
+  "helpCustomizationDescription": {
+    "message": "Utilisez \"Personnalisé\" pour des demandes spécifiques comme \"analyse technique\", \"point de vue critique\", etc.",
+    "description": "Description personnalisation"
+  },
+
+  "floatingButtonTooltip": {
+    "message": "Analyser cette page avec Claude AI",
+    "description": "Tooltip bouton flottant"
+  },
+  "analyzeWithClaude": {
+    "message": "Analyser avec Claude",
+    "description": "Analyser avec Claude"
+  },
+
+  "contextMenuAnalyzeSelection": {
+    "message": "Analyser avec Anthropoïd",
+    "description": "Menu contextuel analyser sélection"
+  },
+  "contextMenuAnalyzePage": {
+    "message": "Analyser cette page avec Claude",
+    "description": "Menu contextuel analyser page"
+  },
+  "contextMenuSpecificAnalyses": {
+    "message": "🎯 Analyses spécifiques",
+    "description": "Sous-menu analyses spécifiques"
+  },
+  "contextMenuSummarize": {
+    "message": "📝 Résumer",
+    "description": "Menu contextuel résumer"
+  },
+  "contextMenuKeyPoints": {
+    "message": "🎯 Points clés",
+    "description": "Menu contextuel points clés"
+  },
+  "contextMenuTranslate": {
+    "message": "🌍 Traduire en français",
+    "description": "Menu contextuel traduire"
+  },
+  "contextMenuExplain": {
+    "message": "💡 Expliquer simplement",
+    "description": "Menu contextuel expliquer"
+  },
+  "contextMenuQuestions": {
+    "message": "❓ Générer des questions",
+    "description": "Menu contextuel questions"
+  },
+
+  "detectingContentType": {
+    "message": "🔍 Détection du type de contenu...",
+    "description": "Détection type contenu"
+  },
+  "webpageDetected": {
+    "message": "🌐 Page web détectée",
+    "description": "Page web détectée"
+  },
+  "videoDetectedType": {
+    "message": "🎬 Vidéo détectée",
+    "description": "Vidéo détectée"
+  },
+  "pdfDetected": {
+    "message": "📄 Document PDF détecté",
+    "description": "PDF détecté"
+  },
+
+  "contentDetected": {
+    "message": "📺 Contenu détecté:",
+    "description": "Label contenu détecté"
+  },
+  "platformLabel": {
+    "message": "Plateforme:",
+    "description": "Label plateforme"
+  },
+
+  "universalExtensionVersion": {
+    "message": "Anthropoïd v$1",
+    "description": "Version extension"
+  },
+
+  "themeLabel": {
+    "message": "Thème :",
+    "description": "Label sélecteur de thème"
+  },
+  "themeAuto": {
+    "message": "Auto (suit Firefox)",
+    "description": "Option thème auto"
+  },
+  "themeLight": {
+    "message": "Clair",
+    "description": "Option thème clair"
+  },
+  "themeDark": {
+    "message": "Sombre",
+    "description": "Option thème sombre"
+  },
+  "themeHelp": {
+    "message": "Le mode Auto suit automatiquement le thème de Firefox",
+    "description": "Aide thème"
+  },
+  "restorePromptButton": {
+    "message": "🔄 Valeur par défaut",
+    "description": "Bouton pour restaurer la valeur par défaut d'un prompt"
+  },
+  "confirmDeleteSystemPrompt": {
+    "message": "⚠️ Êtes-vous sûr de vouloir supprimer le prompt \"{promptType}\" ? Il sera vidé et ne sera plus disponible dans l'extension.",
+    "description": "Confirmation de suppression d'un prompt système"
+  },
+  "promptRestored": {
+    "message": "✅ Prompt \"{promptType}\" restauré à sa valeur par défaut!",
+    "description": "Confirmation de restauration d'un prompt"
+  },
+  "promptDeleted": {
+    "message": "🗑️ Prompt \"{promptType}\" supprimé!",
+    "description": "Confirmation de suppression d'un prompt"
+  },
+  "promptTypeNotSpecified": {
+    "message": "❌ Type de prompt non spécifié",
+    "description": "Erreur quand le type de prompt n'est pas spécifié"
+  },
+  "promptDefaultValueNotFound": {
+    "message": "❌ Valeur par défaut non trouvée pour \"{promptType}\"",
+    "description": "Erreur quand la valeur par défaut d'un prompt n'est pas trouvée"
+  },
+  "promptTextareaNotFound": {
+    "message": "❌ Élément textarea non trouvé pour \"{promptType}\"",
+    "description": "Erreur quand l'élément textarea d'un prompt n'est pas trouvé"
+  },
+  "defaultPromptsDescription": {
+    "message": "Vous pouvez modifier ou supprimer individuellement chaque prompt par défaut",
+    "description": "Description pour la gestion individuelle des prompts"
+  },
+  "clearDataRestoresPrompts": {
+    "message": "Le bouton \"Effacer les données\" restaurera tous les prompts aux valeurs par défaut",
+    "description": "Information sur l'effet du bouton effacer données sur les prompts"
+  },
+  "debugModeVerbose": {
+    "message": "Mode debug verbeux",
+    "description": "Checkbox pour activer le mode debug verbeux"
+  },
+  "debugModeHelp": {
+    "message": "Active les logs détaillés dans la console Firefox pour le debug et le développement",
+    "description": "Aide pour le mode debug"
+  },
+  "exportLogsButton": {
+    "message": "📄 Exporter les logs",
+    "description": "Bouton pour exporter les logs de debug"
+  },
+  "exportLogsHelp": {
+    "message": "Télécharge un fichier avec les informations de debug pour aider au support technique",
+    "description": "Aide pour l'export des logs"
+  },
+  "defaultAnalysisTypeLabel": {
+    "message": "Type d'analyse par défaut:",
+    "description": "Label pour le sélecteur de type d'analyse par défaut"
+  },
+  "defaultAnalysisTypeHelp": {
+    "message": "Ce type d'analyse sera sélectionné automatiquement dans les popups",
+    "description": "Aide pour le sélecteur de type d'analyse par défaut"
+  }
+}
