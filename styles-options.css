@@ -1,0 +1,480 @@
+/*!
+ * Anthropoïd
+ * Copyright (c) 2025 theguruofhydra
+ * Licensed under MIT License
+ * https://github.com/theguruofhydra/anthropoid
+ */
+
+/* styles-options.css - Styles spécifiques pour la page d'options */
+
+/* Variables spécifiques aux options */
+:root {
+  --options-primary: var(--primary-color);
+  --options-primary-hover: var(--primary-hover);
+  --options-success: var(--success-color);
+  --options-success-hover: var(--success-hover);
+  --options-warning: #f59e0b;
+  --options-warning-hover: #d97706;
+  --options-danger: var(--danger-color);
+  --options-danger-hover: var(--danger-hover);
+  --options-secondary: var(--secondary-color);
+  --options-secondary-hover: var(--secondary-hover);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-family);
+  background: var(--bg-primary);
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.container {
+  background: var(--bg-primary);
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: var(--shadow-sm);
+}
+
+h1 {
+  color: var(--text-primary);
+  border-bottom: 3px solid var(--options-primary);
+  padding-bottom: 10px;
+  margin-bottom: 30px;
+}
+
+/* Form elements spécifiques aux options */
+.form-group {
+  margin-bottom: 25px;
+}
+
+.field-with-test {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.field-with-test .field-content {
+  flex: 1;
+}
+
+.field-with-test .test-btn {
+  margin: 0;
+  padding: 8px 12px;
+  font-size: 12px;
+  min-width: 80px;
+  white-space: nowrap;
+  margin-top: 0;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #374151;
+  font-size: 14px;
+}
+
+input[type="password"],
+input[type="text"],
+select,
+textarea {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 14px;
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+  font-family: inherit;
+}
+
+textarea {
+  min-height: 100px;
+  resize: vertical;
+  font-family: "Monaco", "Consolas", monospace;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--options-primary);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Buttons spécifiques aux options */
+button {
+  background-color: var(--options-primary);
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-right: 10px;
+  transition: all 0.2s;
+}
+
+button:hover {
+  background-color: var(--options-primary-hover);
+  transform: translateY(-1px);
+}
+
+button:disabled {
+  background-color: #9ca3af;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Styles pour les boutons avec couleurs spécifiques */
+.secondary-btn {
+  background-color: var(--options-secondary);
+}
+
+.secondary-btn:hover {
+  background-color: var(--options-secondary-hover);
+}
+
+.danger-btn {
+  background-color: var(--options-danger);
+}
+
+.danger-btn:hover {
+  background-color: var(--options-danger-hover);
+}
+
+.success-btn {
+  background-color: var(--options-success);
+}
+
+.success-btn:hover {
+  background-color: var(--options-success-hover);
+}
+
+.warning-btn {
+  background-color: var(--options-warning);
+}
+
+.warning-btn:hover {
+  background-color: var(--options-warning-hover);
+}
+
+/* Info box */
+.info-box {
+  background-color: #eff6ff;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 25px;
+  border-left: 4px solid var(--options-primary);
+}
+
+/* Messages de statut */
+.success-message {
+  background-color: #d1fae5;
+  color: #065f46;
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-top: 8px;
+  margin-bottom: 20px;
+  border: 1px solid #a7f3d0;
+  display: none;
+}
+
+.error-message {
+  background-color: #fee2e2;
+  color: #991b1b;
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-top: 8px;
+  margin-bottom: 20px;
+  border: 1px solid #fecaca;
+  display: none;
+}
+
+/* Status indicators */
+.api-key-status,
+.api-url-status {
+  font-size: 12px;
+  color: #6b7280;
+  margin-top: 5px;
+  font-weight: 600;
+}
+
+.test-result {
+  font-size: 12px;
+  margin-top: 8px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  display: none;
+}
+
+.test-result.success {
+  background-color: #d1fae5;
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+}
+
+.test-result.error {
+  background-color: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+}
+
+.help-text {
+  font-size: 12px;
+  color: #6b7280;
+  margin-top: 5px;
+  line-height: 1.4;
+}
+
+/* Group de boutons */
+.button-group {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 2px solid #e5e7eb;
+}
+
+/* Styles pour les boutons de test avec indicateurs visuels */
+.test-btn.test-loading {
+  background-color: var(--options-warning) !important;
+  color: white !important;
+  cursor: wait !important;
+}
+
+.test-btn.test-success {
+  background-color: var(--options-success) !important;
+  color: white !important;
+  animation: successPulse 0.3s ease-out;
+}
+
+.test-btn.test-error {
+  background-color: var(--options-danger) !important;
+  color: white !important;
+  animation: errorShake 0.5s ease-out;
+}
+
+@keyframes successPulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+    background-color: var(--options-success-hover);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes errorShake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-3px);
+  }
+  75% {
+    transform: translateX(3px);
+  }
+}
+
+/* Section avancée */
+.advanced-section {
+  background-color: #f3f4f6;
+  border-radius: 8px;
+  margin-top: 25px;
+  font-size: 14px;
+  border: 1px solid #e5e7eb;
+}
+
+.advanced-toggle {
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 15px;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  color: #374151;
+  font-weight: 600;
+  border-radius: 8px;
+}
+
+.advanced-toggle:hover {
+  background-color: #f9fafb;
+}
+
+.advanced-content {
+  padding: 0 15px 15px;
+  display: none;
+}
+
+.advanced-content.visible {
+  display: block;
+}
+
+/* Sections des prompts */
+.prompt-section {
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+  border: 1px solid #e5e7eb;
+}
+
+.prompt-section h4 {
+  margin-top: 0;
+  color: #1f2937;
+  font-size: 16px;
+  border-bottom: 2px solid #e5e7eb;
+  padding-bottom: 8px;
+}
+
+.custom-prompt-item {
+  background-color: #f9fafb;
+  border-radius: 6px;
+  padding: 15px;
+  margin-bottom: 15px;
+  border: 1px solid #e5e7eb;
+  position: relative;
+}
+
+.custom-prompt-item h5 {
+  margin: 0 0 10px 0;
+  color: #374151;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.custom-prompt-item .prompt-text {
+  background-color: white;
+  padding: 10px;
+  border-radius: 4px;
+  font-family: "Monaco", "Consolas", monospace;
+  font-size: 12px;
+  color: #4b5563;
+  border: 1px solid #d1d5db;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  max-height: 100px;
+  overflow-y: auto;
+}
+
+.prompt-actions {
+  margin-top: 10px;
+  display: flex;
+  gap: 8px;
+}
+
+.prompt-actions button {
+  padding: 6px 12px;
+  font-size: 12px;
+  margin: 0;
+}
+
+.add-prompt-section {
+  background-color: #fef3c7;
+  border-radius: 8px;
+  padding: 20px;
+  border: 1px solid #fcd34d;
+}
+
+.add-prompt-section h4 {
+  margin-top: 0;
+  color: #92400e;
+}
+
+.new-prompt-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.form-row {
+  display: flex;
+  gap: 15px;
+  align-items: end;
+}
+
+.form-row .form-group {
+  flex: 1;
+  margin-bottom: 0;
+}
+
+.reset-prompts-section {
+  background-color: #fee2e2;
+  border-radius: 8px;
+  padding: 15px;
+  margin-top: 20px;
+  border: 1px solid #fecaca;
+}
+
+.reset-prompts-section p {
+  margin: 0 0 10px 0;
+  color: #991b1b;
+  font-size: 13px;
+}
+
+/* Version info */
+.version-info {
+  text-align: center;
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid #e5e7eb;
+  color: #6b7280;
+  font-size: 12px;
+}
+
+.prompt-preview {
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 12px;
+  margin-top: 8px;
+  font-family: "Monaco", "Consolas", monospace;
+  font-size: 12px;
+  color: #475569;
+  max-height: 150px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+}
+
+.footer {
+  text-align: center;
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-color);
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.ko-fi-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: #ff5f5f;
+  text-decoration: none;
+  font-size: 12px;
+  margin-top: 5px;
+  transition: opacity 0.2s;
+}
+
+.ko-fi-link:hover {
+  opacity: 0.8;
+}

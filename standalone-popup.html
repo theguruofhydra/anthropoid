@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<!--
+  Anthropoïd - Extension Firefox pour analyse de contenu avec Claude AI
+  Copyright (c) 2025 theguruofhydra
+  Licensed under MIT License
+  https://github.com/theguruofhydra/anthropoid
+-->
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <title data-i18n="popupTitle">Anthropoïd - Analyse de contenu</title>
+    <link rel="stylesheet" href="themes.css" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="popup-container">
+      <div class="content">
+        <div id="statusDiv" class="status info" style="display: none">
+          <span data-i18n="loading">Chargement...</span>
+        </div>
+
+        <div id="analysisInfo" class="analysis-info" style="display: none">
+          <h3 id="analysisTitle" data-i18n="statusDetectingContent">
+            Analyse en cours...
+          </h3>
+          <p id="analysisDescription" data-i18n="statusAnalyzingContent">
+            Préparation de l'analyse...
+          </p>
+          <div
+            id="sourceContentDiv"
+            class="source-content"
+            style="display: none"
+          >
+            <strong data-i18n="contentPreviewPrefix"
+              >Aperçu du contenu :</strong
+            >
+            <div id="sourceContent"></div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="modelSelect" data-i18n="claudeModel"
+            >Modèle Claude:</label
+          >
+          <select id="modelSelect">
+            <!-- Les options seront peuplées dynamiquement par le Model Manager -->
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="languageSelect" data-i18n="responseLanguageLabel"
+            >Langue de réponse:</label
+          >
+          <select id="languageSelect">
+            <option value="fr" selected data-i18n="french">Français</option>
+            <option value="en" data-i18n="english">English</option>
+            <option value="es" data-i18n="spanish">Español</option>
+            <option value="de" data-i18n="german">Deutsch</option>
+            <option value="it" data-i18n="italian">Italiano</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="analysisTypeSelect" data-i18n="analysisTypeLabel"
+            >Type d'analyse:</label
+          >
+          <select id="analysisTypeSelect">
+            <option value="summary" data-i18n="analysisTypeSummary">
+              📝 Résumé complet
+            </option>
+            <option value="key_points" data-i18n="analysisTypeKeyPoints">
+              🎯 Points clés
+            </option>
+            <option value="analysis" data-i18n="analysisTypeAnalysis">
+              🔍 Analyse détaillée
+            </option>
+            <option value="questions" data-i18n="analysisTypeQuestions">
+              ❓ Questions/Réponses
+            </option>
+            <option value="translation" data-i18n="analysisTypeTranslation">
+              🌍 Traduction
+            </option>
+            <option value="explanation" data-i18n="analysisTypeExplanation">
+              💡 Explication simple
+            </option>
+            <option value="custom" data-i18n="analysisTypeCustom">
+              🎨 Personnalisé
+            </option>
+          </select>
+        </div>
+
+        <div id="customPromptContainer" class="custom-prompt-container">
+          <label for="customPrompt" data-i18n="customRequestLabel"
+            >Votre demande personnalisée:</label
+          >
+          <textarea
+            id="customPrompt"
+            data-i18n-placeholder="customRequestPlaceholder"
+            placeholder="Décrivez ce que vous voulez que Claude fasse avec ce contenu..."
+          ></textarea>
+          <div class="help-text" data-i18n="customRequestHelp">
+            💡 Exemple: "Analyse ce contenu du point de vue d'un expert en
+            marketing" ou "Extrais les informations techniques importantes"
+          </div>
+        </div>
+
+        <div class="button-group">
+          <button id="analyzeBtn" class="primary-btn">
+            <span data-i18n="analyzeBtnText">🚀 Analyser</span>
+          </button>
+          <button
+            id="optionsBtn"
+            class="secondary-btn"
+            onclick="chrome.runtime.openOptionsPage()"
+          >
+            <span data-i18n="options">⚙️ Options</span>
+          </button>
+        </div>
+
+        <div id="loading" class="loading">
+          <div class="spinner"></div>
+          <div id="loadingText" data-i18n="analyzingText">
+            Analyse en cours...
+          </div>
+        </div>
+        <div id="resultContainer" class="result-container">
+          <div class="result-header">
+            <h3 data-i18n="resultTitle">📝 Résultat de l'analyse</h3>
+          </div>
+          <div id="resultContent" class="result-content"></div>
+        </div>
+
+        <!-- Actions en bas de page (boutons du bas) -->
+        <div id="resultActions" class="result-actions">
+          <div class="copy-buttons">
+            <button id="copyMarkdownBtn" class="copy-btn">
+              <span data-i18n="copyMarkdown">📝 Copier Markdown</span>
+            </button>
+            <button id="copyTextBtn" class="copy-btn">
+              <span data-i18n="copyText">📄 Copier Texte</span>
+            </button>
+          </div>
+          <button id="backBtn" class="back-btn">
+            <span data-i18n="backToSource">← Retour à l'onglet source</span>
+          </button>
+        </div>
+        <!-- Boutons dans le header du résultat (visibles immédiatement après analyse) -->
+        <div class="result-header-actions">
+          <div class="copy-buttons">
+            <button id="copyMarkdownBtnHeader" class="copy-btn">
+              <span data-i18n="copyMarkdown">Copier en Markdown</span>
+            </button>
+            <button id="copyTextBtnHeader" class="copy-btn">
+              <span data-i18n="copyText">Copier en texte brut</span>
+            </button>
+          </div>
+          <button id="backBtnHeader" class="back-btn">
+            <span data-i18n="backToSource">← Retour à l'onglet source</span>
+          </button>
+        </div>
+
+        <!-- Interface de conversation intégrée (mode standalone) -->
+        <div id="conversationContainer" class="conversation-container">
+          <div class="conversation-header">
+            <h3 data-i18n="continueConversationTitle">
+              ✨ Continuez la conversation
+            </h3>
+            <button id="clearConversationBtn" class="clear-conversation-btn">
+              <span data-i18n="clearConversation">🗑️ Effacer</span>
+            </button>
+          </div>
+
+          <div id="conversationHistory" class="conversation-history">
+            <!-- L'historique sera généré dynamiquement -->
+          </div>
+
+          <div class="conversation-input">
+            <textarea
+              id="continuePrompt"
+              data-i18n-placeholder="continueConversationPlaceholder"
+              placeholder="Posez une question ou demandez des précisions sur l'analyse..."
+            ></textarea>
+            <div class="conversation-actions">
+              <button id="continueBtn" class="conversation-btn">
+                <span data-i18n="sendMessage">📤 Envoyer</span>
+              </button>
+              <div
+                class="help-text"
+                style="margin: 0; flex: 1"
+                data-i18n="keyboardShortcut"
+              >
+                💡 Entrée pour envoyer, Alt+Entrée pour nouvelle ligne
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer">
+        <strong class="extension-version" data-i18n="universalExtensionVersion"
+          >Anthropoïd v1.0</strong
+        ><br />
+        <span data-i18n="credits">Made with 👆 by theguruofhydra</span>
+        ><br />
+        <a
+          href="https://opensource.org/licenses/MIT"
+          target="_blank"
+          rel="noopener"
+          >Licence MIT</a
+        >
+        - Libre et open source
+        <br />
+        <a
+          href="https://ko-fi.com/theguruofhydra"
+          target="_blank"
+          class="ko-fi-link"
+        >
+          ☕ Soutenir le développement
+        </a>
+      </div>
+    </div>
+
+    <script src="logger.js"></script>
+    <script src="version-manager.js"></script>
+    <script src="theme-manager.js"></script>
+    <script src="model-manager.js"></script>
+    <script src="standalone-popup.js"></script>
+  </body>
+</html>

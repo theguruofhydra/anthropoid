@@ -1,0 +1,875 @@
+/*!
+ * Anthropoïd
+ * Copyright (c) 2025 theguruofhydra
+ * Licensed under MIT License
+ * https://github.com/theguruofhydra/anthropoid
+ */
+
+/* styles.css - Styles communs pour popup classique et standalone */
+
+/* Variables CSS communes - maintenant dans themes.css */
+:root {
+  /* Gardé pour compatibilité - les vraies variables sont dans themes.css */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    sans-serif;
+}
+
+/* Reset et base */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-family);
+  background: white;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+/* Layout principal */
+.popup-container.classic {
+  width: 800px;
+}
+
+/* Header */
+.header {
+  background: linear-gradient(
+    135deg,
+    var(--secondary-color) 0%,
+    var(--secondary-hover) 100%
+  );
+  color: white;
+  padding: 30px;
+  text-align: center;
+  border-radius: var(--radius-lg);
+  margin-bottom: 30px;
+}
+
+.header.classic {
+  padding: 20px;
+  margin: -20px -20px 20px -20px;
+  border-radius: 0;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.header.classic h1 {
+  font-size: 18px;
+}
+
+.header p {
+  margin: 10px 0 0 0;
+  opacity: 0.9;
+  font-size: 16px;
+}
+
+/* Content container */
+.content {
+  background: var(--bg-primary);
+  border-radius: var(--radius-lg);
+  padding: 30px;
+  box-shadow: var(--shadow-sm);
+}
+
+.content.classic {
+  padding: 20px;
+  border-radius: 0;
+  box-shadow: none;
+  background: white;
+}
+
+/* Status messages */
+.status {
+  padding: 15px;
+  border-radius: var(--radius-md);
+  margin-bottom: 20px;
+  font-size: 14px;
+  text-align: center;
+  font-weight: 600;
+  display: none;
+}
+
+.status.classic {
+  padding: 10px;
+  font-size: 12px;
+}
+
+.status.error {
+  background-color: var(--bg-error);
+  color: #991b1b;
+  border: 1px solid #fecaca;
+}
+
+.status.warning {
+  background-color: var(--bg-warning);
+  color: #92400e;
+  border: 1px solid #fcd34d;
+}
+
+.status.success {
+  background-color: var(--bg-success);
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+}
+
+.status.info {
+  background-color: var(--bg-info);
+  color: #1e40af;
+  border: 1px solid #93c5fd;
+}
+
+/* Analysis info */
+.analysis-info {
+  background: var(--bg-info);
+  border: 1px solid #bfdbfe;
+  border-radius: var(--radius-md);
+  padding: 20px;
+  margin-bottom: 25px;
+}
+
+.analysis-info h3 {
+  margin: 0 0 10px 0;
+  color: #1e40af;
+  font-size: 18px;
+}
+
+.source-content {
+  background: var(--bg-muted);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 15px;
+  margin-top: 15px;
+  max-height: 200px;
+  overflow-y: auto;
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* Form elements */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group.classic {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+label.classic {
+  font-size: 12px;
+  margin-bottom: 5px;
+}
+
+select,
+textarea {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  background: var(--bg-primary);
+  color: var(--text-secondary);
+  font-family: inherit;
+  transition: border-color 0.2s;
+}
+
+select.classic,
+textarea.classic {
+  padding: 8px;
+  font-size: 12px;
+  border-radius: var(--radius-sm);
+}
+
+textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+textarea.classic {
+  min-height: 80px;
+}
+
+select:focus,
+textarea:focus {
+  border-color: var(--border-focus);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Custom prompt container */
+.custom-prompt-container {
+  display: none;
+  margin-top: 15px;
+}
+
+.custom-prompt-container.classic {
+  margin-top: 10px;
+}
+
+.custom-prompt-container.visible {
+  display: block;
+}
+
+.help-text {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 8px;
+  line-height: 1.4;
+}
+
+.help-text.classic {
+  font-size: 10px;
+  margin-top: 5px;
+}
+
+.button-group {
+  display: flex;
+  gap: 15px;
+  margin: 30px 0;
+  align-items: stretch; /* Assure que tous les boutons ont la même hauteur */
+}
+
+/* Layout spécifique pour le popup standalone */
+.button-group:not(.classic) {
+  display: grid;
+  grid-template-columns: 2fr 1fr; /* Analyser = 2/3, Options = 1/3 aligné à droite */
+  gap: 15px;
+}
+
+.button-group.classic {
+  gap: 10px;
+  margin: 30px 0 10px 0;
+  display: flex;
+}
+
+button {
+  padding: 10px 15px; /* Même padding que button.classic */
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 14px; /* Taille de police ajustée */
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 40px; /* Hauteur minimale fixe */
+}
+
+button.classic {
+  padding: 10px 15px;
+  font-size: 12px;
+  border-radius: var(--radius-sm);
+  text-align: center; /* Centrage horizontal */
+  display: flex;
+  align-items: center; /* Centrage vertical */
+  justify-content: center; /* Centrage horizontal avec flex */
+}
+
+/* Bouton principal (Analyser) - 3/4 de la largeur */
+.primary-btn.classic {
+  flex: 3;
+}
+
+/* Bouton secondaire (Options) - 1/4 de la largeur */
+.secondary-btn.classic {
+  flex: 1;
+}
+
+.primary-btn {
+  background: linear-gradient(
+    135deg,
+    var(--primary-color) 0%,
+    var(--primary-hover) 100%
+  );
+  color: white;
+}
+
+.primary-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.primary-btn:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.secondary-btn {
+  background: var(--secondary-color);
+  color: white;
+}
+
+.secondary-btn:hover {
+  background: var(--secondary-hover);
+  transform: translateY(-1px);
+}
+
+/* Bouton retour spécifique - taille ajustée au contenu */
+.back-btn {
+  background: var(--secondary-color);
+  color: white;
+  padding: 10px 15px;
+  font-size: 14px;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  width: auto; /* Taille ajustée au contenu */
+  flex-shrink: 0; /* Ne se réduit pas */
+}
+
+.back-btn:hover {
+  background: var(--secondary-hover);
+  transform: translateY(-1px);
+}
+
+.conversation-btn {
+  padding: 10px 15px; /* Même padding que les autres boutons */
+  font-size: 14px; /* Même taille de police */
+  background: #3b82f6;
+  color: white;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  min-height: 40px; /* Même hauteur que les autres boutons */
+}
+
+.conversation-btn:hover {
+  background: #2563eb;
+  transform: translateY(-1px);
+}
+.danger-btn {
+  background: var(--danger-color);
+  color: white;
+}
+
+.danger-btn:hover {
+  background: var(--danger-hover);
+  transform: translateY(-1px);
+}
+
+.copy-btn {
+  padding: 10px 15px; /* Même padding que les autres boutons */
+  font-size: 14px; /* Même taille de police */
+  background: var(--success-color);
+  color: white;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  min-height: 40px; /* Même hauteur que les autres boutons */
+}
+
+.copy-btn:hover {
+  background: var(--success-hover);
+  transform: translateY(-1px);
+}
+
+/* Loading spinner */
+.loading {
+  display: none;
+  text-align: center;
+  padding: 30px;
+}
+
+.loading.classic {
+  padding: 20px;
+}
+
+.spinner {
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid var(--border-focus);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 15px;
+}
+
+.spinner.classic {
+  width: 30px;
+  height: 30px;
+  margin: 0 auto 10px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Result containers */
+.result-container {
+  display: none;
+  background: var(--bg-primary);
+  border-radius: var(--radius-lg);
+  margin-top: 25px;
+  border: 1px solid var(--border-color);
+}
+
+.result-container.classic {
+  border-radius: var(--radius-md);
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.result-container.visible {
+  display: block;
+}
+
+.result-header {
+  background: var(--bg-muted);
+  padding: 20px;
+  border-bottom: 1px solid var(--border-color);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  display: block; /* Simplifié pour enlever les actions du header */
+}
+
+.result-header.classic {
+  padding: 10px 15px;
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+  gap: 5px;
+}
+
+.result-header h3 {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: 18px;
+}
+
+.result-header.classic h3 {
+  font-size: 14px;
+}
+
+.result-actions {
+  display: none; /* Caché par défaut */
+  gap: 10px;
+  margin-top: 30px; /* Espacement depuis le contenu */
+  padding: 20px;
+  /* Pas de fond gris - même fond que analyser et options */
+}
+
+/* Afficher les actions quand le résultat est visible */
+.result-container.visible ~ #resultActions {
+  display: flex !important;
+}
+
+/* Layout spécifique pour les actions de résultat du popup standalone */
+.result-actions:not(.classic) {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  /* Pas de border-radius spécial car plus dans un container */
+}
+.result-actions:not(.classic) .copy-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+/* NOUVEAUX STYLES POUR POPUP CLASSIC */
+
+/* NOUVEAUX STYLES POUR POPUP CLASSIC */
+
+/* Ligne de boutons de résultat - tous sur une même ligne */
+.result-buttons-row.classic {
+  display: none; /* Caché par défaut */
+  gap: 10px;
+  margin: 15px 0 10px 0;
+  align-items: stretch; /* Tous les boutons ont la même hauteur */
+}
+
+.result-buttons-row.classic.visible {
+  display: flex; /* Afficher quand le résultat est visible */
+}
+
+.result-buttons-row.classic .copy-btn {
+  flex: 1; /* Les boutons copie prennent chacun 1/3 de la largeur */
+  padding: 10px 15px !important;
+  font-size: 12px !important;
+  border-radius: var(--radius-sm) !important;
+  font-weight: 600 !important;
+  min-height: 40px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: var(--success-color) !important;
+  color: white !important;
+}
+
+.result-buttons-row.classic .copy-btn:hover {
+  background: var(--success-hover) !important;
+  transform: translateY(-1px) !important;
+}
+
+.result-buttons-row.classic .conversation-btn {
+  flex: 1; /* Le bouton conversation prend aussi 1/3 de la largeur */
+  padding: 10px 15px !important;
+  font-size: 12px !important;
+  border-radius: var(--radius-sm) !important;
+  font-weight: 600 !important;
+  min-height: 40px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: #3b82f6 !important;
+  color: white !important;
+}
+
+.result-buttons-row.classic .conversation-btn:hover {
+  background: #2563eb !important;
+  transform: translateY(-1px) !important;
+}
+
+/* Styles anciens pour compatibilité - peuvent être supprimés */
+.result-actions.classic {
+  display: none; /* Complètement masqué car remplacé par les nouvelles lignes */
+}
+/* Styles pour les boutons de résultat - même taille que les boutons principaux */
+.copy-btn.classic,
+.conversation-btn.classic {
+  padding: 10px 15px !important; /* Même padding que button.classic et secondary-btn */
+  font-size: 12px !important; /* Même taille de police */
+  border-radius: var(--radius-sm) !important;
+  font-weight: 600 !important;
+  min-height: 40px !important; /* Même hauteur que les autres boutons */
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: #3b82f6 !important; /* Votre couleur bleue */
+}
+.conversation-btn.classic:hover {
+  background: #2563eb !important;
+}
+.result-content {
+  padding: 25px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.result-content.classic {
+  padding: 15px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* Typography dans les résultats */
+.result-content h1,
+.result-content h2,
+.result-content h3 {
+  color: var(--text-primary);
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.result-content.classic h1,
+.result-content.classic h2,
+.result-content.classic h3 {
+  margin-top: 15px;
+  margin-bottom: 8px;
+}
+
+.result-content h1 {
+  font-size: 1.5em;
+  border-bottom: 2px solid var(--border-focus);
+  padding-bottom: 5px;
+}
+
+.result-content.classic h1 {
+  font-size: 1.2em;
+}
+
+.result-content h2 {
+  font-size: 1.3em;
+  color: var(--text-secondary);
+}
+
+.result-content.classic h2 {
+  font-size: 1.1em;
+}
+
+.result-content h3 {
+  font-size: 1.1em;
+  color: var(--text-muted);
+}
+
+.result-content.classic h3 {
+  font-size: 1em;
+}
+
+.result-content ul,
+.result-content ol {
+  margin: 15px 0;
+  padding-left: 25px;
+}
+
+.result-content.classic ul,
+.result-content.classic ol {
+  margin: 10px 0;
+  padding-left: 20px;
+}
+
+.result-content li {
+  margin-bottom: 5px;
+}
+
+.result-content.classic li {
+  margin-bottom: 3px;
+}
+
+.result-content strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.result-content em {
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.result-content code {
+  background: var(--bg-muted);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: "Monaco", "Consolas", monospace;
+  font-size: 13px;
+  color: #e11d48;
+}
+
+.result-content.classic code {
+  padding: 1px 4px;
+  border-radius: 3px;
+  font-size: 11px;
+}
+
+/* Conversation interface */
+.conversation-container {
+  display: none;
+  background: var(--bg-primary);
+  border-radius: var(--radius-lg);
+  margin-top: 25px;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Séparateur visuel entre le résultat et la conversation */
+.conversation-container::before {
+  content: "";
+  display: block;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #e5e7eb, transparent);
+  margin-bottom: 0;
+}
+
+.conversation-container.visible {
+  display: block;
+}
+
+.conversation-header {
+  background: #f0f9ff;
+  padding: 20px;
+  border-bottom: 1px solid #bfdbfe;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.conversation-header h3 {
+  margin: 0;
+  color: #1e40af;
+  font-size: 18px;
+}
+
+.conversation-history {
+  /* Supprimer max-height et overflow-y pour utiliser le scroll principal */
+  padding: 20px;
+}
+
+.conversation-item:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.conversation-question {
+  background: var(--bg-info);
+  padding: 12px 15px;
+  border-radius: var(--radius-md);
+  margin-bottom: 10px;
+  border-left: 4px solid var(--border-focus);
+}
+
+.conversation-answer {
+  background: #f8fafc;
+  padding: 15px;
+  border-radius: var(--radius-md);
+  border-left: 4px solid var(--success-color);
+}
+
+.conversation-input {
+  padding: 20px;
+  border-top: 1px solid var(--border-color);
+  background: var(--bg-muted);
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+}
+
+.conversation-input textarea {
+  width: 100%;
+  min-height: 60px;
+  max-height: 120px;
+  margin-bottom: 15px;
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 12px;
+  font-size: 14px;
+  resize: vertical;
+}
+
+.conversation-input textarea:focus {
+  border-color: var(--success-color);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+.conversation-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.conversation-actions button {
+  padding: 10px 20px;
+  font-size: 14px;
+  border-radius: var(--radius-sm);
+  flex: none;
+}
+
+.clear-conversation-btn {
+  background: var(--danger-color);
+  color: white;
+  font-size: 12px;
+  padding: 6px 12px;
+}
+
+.clear-conversation-btn:hover {
+  background: var(--danger-hover);
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-color);
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+/* Styles spécifiques pour les boutons du popup standalone */
+.result-header:not(.classic) {
+  display: block; /* Layout simple pour standalone */
+}
+
+.result-header:not(.classic) h3 {
+  margin-bottom: 15px;
+}
+
+.result-header:not(.classic) .result-actions {
+  width: 100%;
+}
+
+/* Responsive design */
+/* Boutons dans le header du résultat */
+.result-header-actions {
+  display: none; /* Caché par défaut */
+  padding: 20px;
+  border-top: 1px solid var(--border-color);
+  background: var(--bg-muted);
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}
+
+.result-header-actions .copy-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+/* Afficher les boutons du header quand le résultat est visible */
+.result-container.visible .result-header-actions {
+  display: flex;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  body {
+    padding: 10px;
+  }
+
+  .header {
+    padding: 20px;
+  }
+
+  .header h1 {
+    font-size: 20px;
+  }
+
+  .content {
+    padding: 20px;
+  }
+
+  .button-group {
+    flex-direction: column;
+  }
+
+  .result-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .result-actions {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .conversation-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .ko-fi-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    color: #ff5f5f;
+    text-decoration: none;
+    font-size: 12px;
+    margin-top: 5px;
+    transition: opacity 0.2s;
+  }
+
+  .ko-fi-link:hover {
+    opacity: 0.8;
+  }
+}

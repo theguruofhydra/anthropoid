@@ -1,0 +1,297 @@
+/*!
+ * Anthropoïd
+ * Copyright (c) 2025 theguruofhydra
+ * Licensed under MIT License
+ * https://github.com/theguruofhydra/anthropoid
+ */
+
+/* themes.css - Système de thèmes pour Anthropoïd */
+
+/* ========================================
+   VARIABLES DE BASE - THÈME CLAIR (défaut)
+   ======================================== */
+:root {
+  /* Couleurs de fond */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8f9fa;
+  --bg-muted: #f3f4f6;
+  --bg-info: #eff6ff;
+  --bg-success: #d1fae5;
+  --bg-warning: #fef3c7;
+  --bg-error: #fee2e2;
+
+  /* Couleurs de texte */
+  --text-primary: #1f2937;
+  --text-secondary: #374151;
+  --text-muted: #6b7280;
+  --text-accent: #3b82f6;
+
+  /* Couleurs de bordure */
+  --border-color: #d1d5db;
+  --border-focus: #3b82f6;
+  --border-muted: #e5e7eb;
+
+  /* Couleurs des boutons */
+  --primary-color: #667eea;
+  --primary-hover: #764ba2;
+  --secondary-color: #6b7280;
+  --secondary-hover: #4b5563;
+  --success-color: #10b981;
+  --success-hover: #059669;
+  --danger-color: #ef4444;
+  --danger-hover: #dc2626;
+
+  /* Ombres */
+  --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 4px 15px rgba(0, 0, 0, 0.2);
+  --shadow-modal: 0 20px 60px rgba(0, 0, 0, 0.3);
+
+  /* Autres */
+  --backdrop-blur: rgba(0, 0, 0, 0.7);
+  --overlay-color: rgba(255, 255, 255, 0.9);
+}
+
+/* ========================================
+     THÈME SOMBRE - MANUEL
+     ======================================== */
+:root[data-theme="dark"] {
+  /* Couleurs de fond */
+  --bg-primary: #1f2937;
+  --bg-secondary: #111827;
+  --bg-muted: #374151;
+  --bg-info: #1e3a8a;
+  --bg-success: #064e3b;
+  --bg-warning: #92400e;
+  --bg-error: #7f1d1d;
+
+  /* Couleurs de texte */
+  --text-primary: #f9fafb;
+  --text-secondary: #e5e7eb;
+  --text-muted: #9ca3af;
+  --text-accent: #60a5fa;
+
+  /* Couleurs de bordure */
+  --border-color: #4b5563;
+  --border-focus: #60a5fa;
+  --border-muted: #374151;
+
+  /* Couleurs des boutons - adaptées pour le sombre */
+  --primary-color: #8b5cf6;
+  --primary-hover: #7c3aed;
+  --secondary-color: #6b7280;
+  --secondary-hover: #9ca3af;
+  --success-color: #10b981;
+  --success-hover: #34d399;
+  --danger-color: #f87171;
+  --danger-hover: #ef4444;
+
+  /* Ombres adaptées */
+  --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 4px 15px rgba(0, 0, 0, 0.4);
+  --shadow-modal: 0 20px 60px rgba(0, 0, 0, 0.6);
+
+  /* Autres */
+  --backdrop-blur: rgba(0, 0, 0, 0.8);
+  --overlay-color: rgba(31, 41, 55, 0.9);
+}
+
+/* ========================================
+     THÈME AUTOMATIQUE - SUIT FIREFOX
+     ======================================== */
+@media (prefers-color-scheme: dark) {
+  :root[data-theme="auto"] {
+    /* Couleurs de fond */
+    --bg-primary: #1f2937;
+    --bg-secondary: #111827;
+    --bg-muted: #374151;
+    --bg-info: #1e3a8a;
+    --bg-success: #064e3b;
+    --bg-warning: #92400e;
+    --bg-error: #7f1d1d;
+
+    /* Couleurs de texte */
+    --text-primary: #f9fafb;
+    --text-secondary: #e5e7eb;
+    --text-muted: #9ca3af;
+    --text-accent: #60a5fa;
+
+    /* Couleurs de bordure */
+    --border-color: #4b5563;
+    --border-focus: #60a5fa;
+    --border-muted: #374151;
+
+    /* Couleurs des boutons */
+    --primary-color: #8b5cf6;
+    --primary-hover: #7c3aed;
+    --secondary-color: #6b7280;
+    --secondary-hover: #9ca3af;
+    --success-color: #10b981;
+    --success-hover: #34d399;
+    --danger-color: #f87171;
+    --danger-hover: #ef4444;
+
+    /* Ombres adaptées */
+    --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 4px 15px rgba(0, 0, 0, 0.4);
+    --shadow-modal: 0 20px 60px rgba(0, 0, 0, 0.6);
+
+    /* Autres */
+    --backdrop-blur: rgba(0, 0, 0, 0.8);
+    --overlay-color: rgba(31, 41, 55, 0.9);
+  }
+}
+
+/* ========================================
+     STYLES SPÉCIFIQUES AU THÈME SOMBRE
+     ======================================== */
+
+/* Inputs et selects en mode sombre */
+:root[data-theme="dark"] input,
+:root[data-theme="dark"] select,
+:root[data-theme="dark"] textarea {
+  background-color: var(--bg-muted);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+:root[data-theme="dark"] input::placeholder,
+:root[data-theme="dark"] textarea::placeholder {
+  color: var(--text-muted);
+}
+
+/* Mode auto en thème sombre */
+@media (prefers-color-scheme: dark) {
+  :root[data-theme="auto"] input,
+  :root[data-theme="auto"] select,
+  :root[data-theme="auto"] textarea {
+    background-color: var(--bg-muted);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+  }
+
+  :root[data-theme="auto"] input::placeholder,
+  :root[data-theme="auto"] textarea::placeholder {
+    color: var(--text-muted);
+  }
+}
+
+/* Code blocks en mode sombre */
+:root[data-theme="dark"] code {
+  background-color: var(--bg-secondary);
+  color: #fbbf24;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root[data-theme="auto"] code {
+    background-color: var(--bg-secondary);
+    color: #fbbf24;
+  }
+}
+
+/* Scrollbars personnalisées pour le thème sombre */
+:root[data-theme="dark"] *::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+:root[data-theme="dark"] *::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+:root[data-theme="dark"] *::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 4px;
+}
+
+:root[data-theme="dark"] *::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root[data-theme="auto"] *::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  :root[data-theme="auto"] *::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+  }
+
+  :root[data-theme="auto"] *::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 4px;
+  }
+
+  :root[data-theme="auto"] *::-webkit-scrollbar-thumb:hover {
+    background: var(--text-muted);
+  }
+}
+
+/* ========================================
+     ANIMATIONS DE TRANSITION
+     ======================================== */
+:root {
+  --theme-transition: background-color 0.3s ease, color 0.3s ease,
+    border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+* {
+  transition: var(--theme-transition);
+}
+
+/* ========================================
+     CLASSES UTILITAIRES
+     ======================================== */
+.theme-bg-primary {
+  background-color: var(--bg-primary);
+}
+.theme-bg-secondary {
+  background-color: var(--bg-secondary);
+}
+.theme-bg-muted {
+  background-color: var(--bg-muted);
+}
+.theme-text-primary {
+  color: var(--text-primary);
+}
+.theme-text-secondary {
+  color: var(--text-secondary);
+}
+.theme-text-muted {
+  color: var(--text-muted);
+}
+.theme-border {
+  border-color: var(--border-color);
+}
+
+.ko-fi-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: #ff5f5f;
+  text-decoration: none;
+  font-size: 12px;
+  margin-top: 5px;
+  transition: opacity 0.2s;
+}
+
+.ko-fi-link:hover {
+  opacity: 0.8;
+}
+/* ========================================
+     DEBUG - À SUPPRIMER EN PRODUCTION
+     ======================================== */
+/* 
+  .theme-debug::before {
+    content: "Theme: " attr(data-theme);
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background: var(--bg-error);
+    color: var(--text-primary);
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    z-index: 9999;
+  }
+  */

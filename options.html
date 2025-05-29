@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<!--
+  Anthropoïd - Extension Firefox pour analyse de contenu avec Claude AI
+  Copyright (c) 2025 theguruofhydra
+  Licensed under MIT License
+  https://github.com/theguruofhydra/anthropoid
+-->
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title data-i18n="optionsTitle">Options - Anthropoïd</title>
+    <link rel="stylesheet" href="themes.css" />
+    <link rel="stylesheet" href="styles-options.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1 data-i18n="optionsTitle">Configuration de l'extension 👆</h1>
+
+      <div class="info-box">
+        <strong data-i18n="configurationRequired"
+          >🔐 Configuration requise</strong
+          <span></span>
+        <br /><br />
+        <strong data-i18n="claudeApiKeyLabel">1. Clé API Claude :</strong><br />
+        <span data-i18n="claudeApiKeyDescription"
+          >Rendez-vous sur
+          <a href="https://console.anthropic.com/" target="_blank"
+            >console.anthropic.com</a
+          >, créez un compte et générez une clé API</span
+        >
+        <br /><br />
+        <strong data-i18n="pipedApiUrlLabel"
+          >2. URL API Piped (optionnel pour YouTube):</strong
+        ><br />
+        <span data-i18n="pipedApiUrlDescription"
+          >L'URL de l'API de votre instance Piped préférée (optionnel pour
+          YouTube, ex: https://pipedapi.kavin.rocks)</span
+        >
+      </div>
+
+      <form id="optionsForm">
+        <div class="form-group">
+          <label for="claudeApiKey" data-i18n="claudeApiKeyField"
+            >Clé API Claude:</label
+          >
+          <div class="field-with-test">
+            <div class="field-content">
+              <input
+                type="password"
+                id="claudeApiKey"
+                placeholder="sk-ant-api03-..."
+              />
+              <div
+                class="api-key-status"
+                id="apiKeyStatus"
+                data-i18n="apiKeyNotConfigured"
+              >
+                Non configurée
+              </div>
+              <div class="help-text" data-i18n="claudeApiKeyHelp">
+                Votre clé API est stockée localement
+              </div>
+            </div>
+            <button
+              type="button"
+              id="testApiBtn"
+              class="secondary-btn test-btn"
+              data-i18n="testClaudeApi"
+            >
+              🧪 Test
+            </button>
+          </div>
+          <div id="claudeTestResult" class="test-result"></div>
+        </div>
+
+        <div class="form-group">
+          <label for="pipedApiUrl" data-i18n="pipedApiUrlField"
+            >URL de l'API Piped:</label
+          >
+          <div class="field-with-test">
+            <div class="field-content">
+              <input
+                type="text"
+                id="pipedApiUrl"
+                data-i18n-placeholder="pipedApiUrlPlaceholder"
+                placeholder="https://votre-instance-piped.com/api"
+              />
+              <div
+                class="api-url-status"
+                id="apiUrlStatus"
+                data-i18n="pipedapiNotConfigured"
+              >
+                Non configurée
+              </div>
+              <div class="help-text" data-i18n="pipedApiUrlHelp">
+                URL de l'API de votre instance Piped préférée. Optionnel pour
+                YouTube. Exemples : https://pipedapi.kavin.rocks
+              </div>
+            </div>
+            <button
+              type="button"
+              id="testPipedBtn"
+              class="secondary-btn test-btn"
+              data-i18n="testPipedApi"
+            >
+              🔗 Test
+            </button>
+          </div>
+          <div id="pipedTestResult" class="test-result"></div>
+        </div>
+
+        <div class="form-group">
+          <label for="claudeModel" data-i18n="claudeModelDefault"
+            >Modèle Claude par défaut:</label
+          >
+          <div class="field-with-test">
+            <div class="field-content">
+              <select id="claudeModel">
+                <!-- Les options seront peuplées dynamiquement par le Model Manager -->
+              </select>
+              <div class="help-text" data-i18n="modelSelectionHelp">
+                Les modèles sont automatiquement détectés depuis l'API Anthropic
+              </div>
+            </div>
+            <button
+              type="button"
+              id="updateModelsBtn"
+              class="secondary-btn test-btn"
+            >
+              🔄 Mise à jour
+            </button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="themeSelect" data-i18n="themeLabel">Thème :</label>
+          <select id="themeSelect">
+            <option value="auto" data-i18n="themeAuto">Auto (suit Firefox)</option>
+            <option value="light" data-i18n="themeLight">Clair</option>
+            <option value="dark" data-i18n="themeDark">Sombre</option>
+          </select>
+          <div class="help-text" data-i18n="themeHelp">
+            Le mode Auto suit automatiquement le thème de Firefox
+          </div>
+        </div>
+
+        <div class="form-group">
+            <label for="summaryLanguage" data-i18n="summaryLanguageDefault"
+              >Langue de réponse par défaut:</label
+            >
+            <select id="summaryLanguage">
+              <option value="fr" data-i18n="french">Français</option>
+              <option value="en" data-i18n="english">English</option>
+              <option value="es" data-i18n="spanish">Español</option>
+              <option value="de" data-i18n="german">Deutsch</option>
+              <option value="it" data-i18n="italian">Italiano</option>
+            </select>
+          </div>
+  
+          <div class="form-group">
+            <label for="defaultAnalysisType" data-i18n="defaultAnalysisTypeLabel"
+              >Type d'analyse par défaut:</label
+            >
+            <select id="defaultAnalysisType">
+              <option value="summary" data-i18n="analysisTypeSummary">
+                📝 Résumé complet
+              </option>
+              <option value="key_points" data-i18n="analysisTypeKeyPoints">
+                🎯 Points clés
+              </option>
+              <option value="analysis" data-i18n="analysisTypeAnalysis">
+                🔍 Analyse détaillée
+              </option>
+              <option value="questions" data-i18n="analysisTypeQuestions">
+                ❓ Questions/Réponses
+              </option>
+              <option value="translation" data-i18n="analysisTypeTranslation">
+                🌍 Traduction
+              </option>
+              <option value="explanation" data-i18n="analysisTypeExplanation">
+                💡 Explication simple
+              </option>
+            </select>
+            <div class="help-text" data-i18n="defaultAnalysisTypeHelp">
+              Ce type d'analyse sera sélectionné automatiquement dans les popups
+            </div>
+          </div>
+      </form>
+
+      <!-- Section Configuration Avancée -->
+      <div class="advanced-section" id="advancedSection">
+        <button class="advanced-toggle" id="advancedToggle">
+          <span><strong>⚙️ Configuration avancée</strong></span>
+          <span id="advancedArrow">▼</span>
+        </button>
+        <div class="advanced-content" id="advancedContent">
+          <!-- Prompts système -->
+          <div class="prompt-section">
+            <h4>📝 Prompts par défaut</h4>
+            <p class="help-text">
+              Vous pouvez modifier ou supprimer individuellement chaque prompt par défaut
+            </p>
+
+            <!-- Prompt Résumé -->
+            <div class="form-group">
+              <label for="promptSummary">📝 Prompt "Résumé complet" :</label>
+              <textarea id="promptSummary" rows="3">
+Fais un résumé complet et structuré de ce contenu. Utilise des titres et sous-titres en markdown.</textarea>
+              <div class="prompt-actions">
+                <button type="button" class="warning-btn restore-prompt-btn" data-prompt-type="summary">
+                  🔄 Valeur par défaut
+                </button>
+                <button type="button" class="danger-btn delete-prompt-btn" data-prompt-type="summary">
+                  🗑️ Supprimer
+                </button>
+              </div>
+            </div>
+
+            <!-- Prompt Points clés -->
+            <div class="form-group">
+              <label for="promptKeyPoints">🎯 Prompt "Points clés" :</label>
+              <textarea id="promptKeyPoints" rows="3">
+Extrais et liste les points clés de ce contenu sous forme de liste à puces organisée.</textarea>
+              <div class="prompt-actions">
+                <button type="button" class="warning-btn restore-prompt-btn" data-prompt-type="key_points">
+                  🔄 Valeur par défaut
+                </button>
+                <button type="button" class="danger-btn delete-prompt-btn" data-prompt-type="key_points">
+                  🗑️ Supprimer
+                </button>
+              </div>
+            </div>
+
+            <!-- Prompt Analyse détaillée -->
+            <div class="form-group">
+              <label for="promptAnalysis"
+                >🔍 Prompt "Analyse détaillée" :</label
+              >
+              <textarea id="promptAnalysis" rows="3">
+Fais une analyse détaillée de ce contenu en expliquant les idées principales, les arguments, et les implications.</textarea>
+              <div class="prompt-actions">
+                <button type="button" class="warning-btn restore-prompt-btn" data-prompt-type="analysis">
+                  🔄 Valeur par défaut
+                </button>
+                <button type="button" class="danger-btn delete-prompt-btn" data-prompt-type="analysis">
+                  🗑️ Supprimer
+                </button>
+              </div>
+            </div>
+
+            <!-- Prompt Questions/Réponses -->
+            <div class="form-group">
+              <label for="promptQuestions"
+                >❓ Prompt "Questions/Réponses" :</label
+              >
+              <textarea id="promptQuestions" rows="3">
+Génère une série de questions importantes avec leurs réponses basées sur ce contenu.</textarea>
+              <div class="prompt-actions">
+                <button type="button" class="warning-btn restore-prompt-btn" data-prompt-type="questions">
+                  🔄 Valeur par défaut
+                </button>
+                <button type="button" class="danger-btn delete-prompt-btn" data-prompt-type="questions">
+                  🗑️ Supprimer
+                </button>
+              </div>
+            </div>
+
+            <!-- Prompt Traduction -->
+            <div class="form-group">
+              <label for="promptTranslation">🌍 Prompt "Traduction" :</label>
+              <textarea id="promptTranslation" rows="3">
+Traduis ce contenu dans la langue de réponse sélectionnée par l'utilisateur en gardant le sens et le contexte original.</textarea>
+              <div class="prompt-actions">
+                <button type="button" class="warning-btn restore-prompt-btn" data-prompt-type="translation">
+                  🔄 Valeur par défaut
+                </button>
+                <button type="button" class="danger-btn delete-prompt-btn" data-prompt-type="translation">
+                  🗑️ Supprimer
+                </button>
+              </div>
+            </div>
+
+            <!-- Prompt Explication simple -->
+            <div class="form-group">
+              <label for="promptExplanation"
+                >💡 Prompt "Explication simple" :</label
+              >
+              <textarea id="promptExplanation" rows="3">
+Explique ce contenu de manière simple et accessible, comme si tu t'adressais à un débutant.</textarea>
+              <div class="prompt-actions">
+                <button type="button" class="warning-btn restore-prompt-btn" data-prompt-type="explanation">
+                  🔄 Valeur par défaut
+                </button>
+                <button type="button" class="danger-btn delete-prompt-btn" data-prompt-type="explanation">
+                  🗑️ Supprimer
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Prompts personnalisés -->
+          <div class="prompt-section">
+            <h4>🎨 Vos prompts personnalisés</h4>
+
+            <div id="customPromptsList">
+              <!-- Les prompts personnalisés seront ajoutés ici dynamiquement -->
+            </div>
+
+            <div class="add-prompt-section">
+              <h4>➕ Ajouter un nouveau prompt</h4>
+              <div class="new-prompt-form">
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="newPromptTitle">Titre du prompt :</label>
+                    <input
+                      type="text"
+                      id="newPromptTitle"
+                      placeholder="Titre du prompt"
+                    />
+                  </div>
+                  <button type="button" id="addPromptBtn" class="success-btn">
+                    ➕ Ajouter
+                  </button>
+                </div>
+                <div class="form-group">
+                  <label for="newPromptContent">Contenu du prompt :</label>
+                  <textarea
+                    id="newPromptContent"
+                    placeholder="Décrivez comment vous voulez que le contenu soit analysé..."
+                    rows="4"
+                  ></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Mode debug -->
+          <div class="prompt-section">
+            <h4>🐛 Debug</h4>
+            <div class="form-group">
+              <label>
+                <input type="checkbox" id="debugModeCheckbox" />
+                <span data-i18n="debugModeVerbose">Mode debug verbeux</span>
+              </label>
+              <div class="help-text" data-i18n="debugModeHelp">
+                Active les logs détaillés dans la console Firefox pour le debug et le développement
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Boutons principaux en bas -->
+      <div class="button-group">
+        <button type="submit" form="optionsForm" data-i18n="saveSettings">
+          💾 Sauvegarder
+        </button>
+        <button
+          type="button"
+          id="clearDataBtn"
+          class="danger-btn"
+          data-i18n="clearData"
+        >
+          🗑️ Effacer les données
+        </button>
+      </div>
+      <div id="message"></div>
+
+      <div class="footer">
+        <strong class="extension-version" data-i18n="universalExtensionVersion"
+          >Anthropoïd v1.0</strong
+        ><br />
+        <span data-i18n="credits">Made with 👆 by theguruofhydra</span>
+        <br />
+        <a
+          href="https://opensource.org/licenses/MIT"
+          target="_blank"
+          rel="noopener"
+          >Licence MIT</a
+        >
+        - Libre et open source
+        <br />
+        <a
+          href="https://ko-fi.com/theguruofhydra"
+          target="_blank"
+          class="ko-fi-link"
+        >
+          ☕ Soutenir le développement
+        </a>
+      </div>
+
+    <script src="logger.js"></script>
+    <script src="version-manager.js"></script>
+    <script src="theme-manager.js"></script>
+    <script src="model-manager.js"></script>
+    <script src="options.js"></script>
+  </body>
+</html>

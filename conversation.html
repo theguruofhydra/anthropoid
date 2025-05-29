@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<!--
+  Anthropoïd - Extension Firefox pour analyse de contenu avec Claude AI
+  Copyright (c) 2025 theguruofhydra
+  Licensed under MIT License
+  https://github.com/theguruofhydra/anthropoid
+-->
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <title>Anthropoïd - Conversation</title>
+    <link rel="stylesheet" href="themes.css" />
+    <style>
+      body {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          sans-serif;
+        background: #f8f9fa;
+        min-height: 100vh;
+      }
+
+      .header {
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        color: white;
+        padding: 30px;
+        text-align: center;
+        border-radius: 12px;
+        margin-bottom: 30px;
+      }
+
+      .header h1 {
+        margin: 0;
+        font-size: 28px;
+        font-weight: 600;
+      }
+
+      .header p {
+        margin: 10px 0 0 0;
+        opacity: 0.9;
+        font-size: 16px;
+      }
+
+      .conversation-container {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+      }
+
+      .conversation-header {
+        background: #f0f9ff;
+        padding: 20px;
+        border-bottom: 1px solid #bfdbfe;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .conversation-header h2 {
+        margin: 0;
+        color: #1e40af;
+        font-size: 20px;
+      }
+
+      .conversation-info {
+        font-size: 14px;
+        color: #6b7280;
+      }
+
+      .conversation-history {
+        max-height: 60vh;
+        overflow-y: auto;
+        padding: 0;
+      }
+
+      .conversation-item {
+        padding: 20px;
+        border-bottom: 1px solid #f3f4f6;
+      }
+
+      .conversation-item:last-child {
+        border-bottom: none;
+      }
+
+      .conversation-item.initial {
+        background: #fef3c7;
+        border-left: 4px solid #f59e0b;
+      }
+
+      .conversation-question {
+        background: #eff6ff;
+        padding: 15px 20px;
+        border-radius: 12px;
+        margin-bottom: 15px;
+        border-left: 4px solid #3b82f6;
+      }
+
+      .conversation-question .label {
+        font-weight: 600;
+        color: #1e40af;
+        margin-bottom: 8px;
+        font-size: 14px;
+      }
+
+      .conversation-question .content {
+        color: #374151;
+        line-height: 1.5;
+      }
+
+      .conversation-answer {
+        background: #f0fdf4;
+        padding: 20px;
+        border-radius: 12px;
+        border-left: 4px solid #10b981;
+      }
+
+      .conversation-answer .label {
+        font-weight: 600;
+        color: #065f46;
+        margin-bottom: 12px;
+        font-size: 14px;
+      }
+
+      .conversation-answer .content {
+        color: #374151;
+        line-height: 1.6;
+      }
+
+      .conversation-answer .content h1,
+      .conversation-answer .content h2,
+      .conversation-answer .content h3 {
+        color: #1f2937;
+        margin-top: 20px;
+        margin-bottom: 10px;
+      }
+
+      .conversation-answer .content h1 {
+        font-size: 1.5em;
+        border-bottom: 2px solid #10b981;
+        padding-bottom: 5px;
+      }
+
+      .conversation-answer .content h2 {
+        font-size: 1.3em;
+        color: #374151;
+      }
+
+      .conversation-answer .content h3 {
+        font-size: 1.1em;
+        color: #6b7280;
+      }
+
+      .conversation-answer .content ul,
+      .conversation-answer .content ol {
+        margin: 15px 0;
+        padding-left: 25px;
+      }
+
+      .conversation-answer .content li {
+        margin-bottom: 5px;
+      }
+
+      .conversation-answer .content strong {
+        color: #1f2937;
+        font-weight: 600;
+      }
+
+      .conversation-answer .content em {
+        color: #6b7280;
+        font-style: italic;
+      }
+
+      .conversation-answer .content code {
+        background: #f3f4f6;
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-family: "Monaco", "Consolas", monospace;
+        font-size: 13px;
+        color: #e11d48;
+      }
+
+      .conversation-input {
+        padding: 25px;
+        border-top: 1px solid #e5e7eb;
+        background: #fafafa;
+      }
+
+      .input-container {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .input-container textarea {
+        width: 100%;
+        min-height: 100px;
+        border: 2px solid #d1d5db;
+        border-radius: 12px;
+        padding: 15px;
+        font-size: 15px;
+        font-family: inherit;
+        box-sizing: border-box;
+        resize: vertical;
+        transition: border-color 0.2s;
+      }
+
+      .input-container textarea:focus {
+        border-color: #10b981;
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+      }
+
+      .input-container textarea::placeholder {
+        color: #9ca3af;
+      }
+
+      .input-actions {
+        display: flex;
+        gap: 15px;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .input-actions .left {
+        display: flex;
+        gap: 10px;
+      }
+
+      .input-actions .right {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+
+      .help-text {
+        font-size: 13px;
+        color: #6b7280;
+        margin: 0;
+      }
+
+      button {
+        padding: 12px 24px;
+        border: none;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .primary-btn {
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        color: white;
+      }
+
+      .primary-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+      }
+
+      .primary-btn:disabled {
+        background: #9ca3af;
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
+      }
+
+      .secondary-btn {
+        background: #6b7280;
+        color: white;
+      }
+
+      .secondary-btn:hover {
+        background: #4b5563;
+        transform: translateY(-1px);
+      }
+
+      .danger-btn {
+        background: #ef4444;
+        color: white;
+      }
+
+      .danger-btn:hover {
+        background: #dc2626;
+        transform: translateY(-1px);
+      }
+
+      .copy-btn {
+        background: #3b82f6;
+        color: white;
+        font-size: 12px;
+        padding: 8px 16px;
+      }
+
+      .copy-btn:hover {
+        background: #2563eb;
+      }
+
+      .loading {
+        display: none;
+        text-align: center;
+        padding: 30px;
+      }
+
+      .spinner {
+        border: 3px solid #f3f3f3;
+        border-top: 3px solid #10b981;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        animation: spin 1s linear infinite;
+        margin: 0 auto 15px;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      .status {
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        font-size: 14px;
+        text-align: center;
+        font-weight: 600;
+        display: none;
+      }
+
+      .status.error {
+        background-color: #fee2e2;
+        color: #991b1b;
+        border: 1px solid #fecaca;
+      }
+
+      .status.warning {
+        background-color: #fef3c7;
+        color: #92400e;
+        border: 1px solid #fcd34d;
+      }
+
+      .status.success {
+        background-color: #d1fae5;
+        color: #065f46;
+        border: 1px solid #a7f3d0;
+      }
+
+      .empty-state {
+        text-align: center;
+        padding: 40px 20px;
+        color: #6b7280;
+      }
+
+      .empty-state .icon {
+        font-size: 48px;
+        margin-bottom: 16px;
+      }
+
+      .empty-state h3 {
+        margin: 0 0 8px 0;
+        color: #374151;
+        font-size: 18px;
+      }
+
+      .empty-state p {
+        margin: 0;
+        font-size: 14px;
+        line-height: 1.5;
+      }
+
+      .floating-actions {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        z-index: 1000;
+      }
+
+      .floating-btn {
+        background: #10b981;
+        color: white;
+        border: none;
+        border-radius: 50px;
+        padding: 12px 20px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+        transition: all 0.3s;
+      }
+
+      .floating-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(16, 185, 129, 0.6);
+      }
+
+      /* Responsive design */
+      @media (max-width: 768px) {
+        body {
+          padding: 10px;
+        }
+
+        .header {
+          padding: 20px;
+        }
+
+        .header h1 {
+          font-size: 24px;
+        }
+
+        .conversation-item,
+        .conversation-input {
+          padding: 15px;
+        }
+
+        .input-actions {
+          flex-direction: column;
+          align-items: stretch;
+        }
+
+        .input-actions .left,
+        .input-actions .right {
+          justify-content: center;
+        }
+
+        .floating-actions {
+          position: static;
+          margin-top: 20px;
+          flex-direction: row;
+          justify-content: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <h1>💬 Conversation avec Claude</h1>
+      <p>Posez vos questions et approfondissez l'analyse</p>
+    </div>
+
+    <div id="statusDiv" class="status" style="display: none">Chargement...</div>
+
+    <div class="conversation-container">
+      <div class="conversation-header">
+        <h2>
+          <img
+            src="icons/icone-32.png"
+            width="16"
+            height="16"
+            alt="Anthropoïd"
+          />
+          Discussion en cours
+        </h2>
+        <div class="conversation-info">
+          <span id="conversationInfo">Chargement...</span>
+        </div>
+      </div>
+
+      <div id="conversationHistory" class="conversation-history">
+        <!-- L'historique sera généré dynamiquement -->
+        <div class="empty-state">
+          <div class="icon">🤔</div>
+          <h3>Conversation en cours de chargement...</h3>
+          <p>Préparation de votre session avec Claude</p>
+        </div>
+      </div>
+
+      <div id="loading" class="loading">
+        <div class="spinner"></div>
+        <div id="loadingText">Réflexion de Claude en cours...</div>
+      </div>
+
+      <div class="conversation-input">
+        <div class="input-container">
+          <textarea
+            id="userInput"
+            placeholder="Posez une question, demandez des précisions, ou explorez un aspect particulier de l'analyse..."
+          ></textarea>
+
+          <div class="input-actions">
+            <div class="left">
+              <button id="sendBtn" class="primary-btn">📤 Envoyer</button>
+              <button id="clearBtn" class="danger-btn">🗑️ Effacer tout</button>
+            </div>
+
+            <div class="right">
+              <div class="help-text">💡 Ctrl+Entrée pour envoyer</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Actions flottantes -->
+    <div class="floating-actions">
+      <button id="backToSourceBtn" class="floating-btn">
+        ← Retour à la source
+      </button>
+      <button id="copyConversationBtn" class="floating-btn">
+        📋 Copier la conversation
+      </button>
+    </div>
+
+    <script src="logger.js"></script>
+    <script src="version-manager.js"></script>
+    <script src="theme-manager.js"></script>
+    <script src="conversation.js"></script>
+  </body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<!--
+  Anthropoïd - Extension Firefox pour analyse de contenu avec Claude AI
+  Copyright (c) 2025 theguruofhydra
+  Licensed under MIT License
+  https://github.com/theguruofhydra/anthropoid
+-->
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <title data-i18n="extensionName">Anthropoïd - Popup Extension</title>
+    <link rel="stylesheet" href="themes.css" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="popup-container classic">
+      <div class="content classic">
+        <div id="status" class="status classic" data-i18n="loading">
+          Chargement...
+        </div>
+
+        <div class="form-group classic">
+          <label for="modelSelect" data-i18n="claudeModel"
+            >Modèle Claude:</label
+          >
+          <select id="modelSelect" class="classic">
+            <!-- Les options seront peuplées dynamiquement par le Model Manager -->
+          </select>
+        </div>
+
+        <div class="form-group classic">
+          <label for="languageSelect" data-i18n="responseLanguageLabel"
+            >Langue de réponse:</label
+          >
+          <select id="languageSelect" class="classic">
+            <option value="fr" selected data-i18n="french">Français</option>
+            <option value="en" data-i18n="english">English</option>
+            <option value="es" data-i18n="spanish">Español</option>
+            <option value="de" data-i18n="german">Deutsch</option>
+            <option value="it" data-i18n="italian">Italiano</option>
+          </select>
+        </div>
+
+        <div class="form-group classic">
+          <label for="analysisTypeSelect" data-i18n="analysisTypeLabel"
+            >Type d'analyse:</label
+          >
+          <select id="analysisTypeSelect" class="classic">
+            <option value="summary" data-i18n="analysisTypeSummary">
+              📝 Résumé complet
+            </option>
+            <option value="key_points" data-i18n="analysisTypeKeyPoints">
+              🎯 Points clés
+            </option>
+            <option value="analysis" data-i18n="analysisTypeAnalysis">
+              🔍 Analyse détaillée
+            </option>
+            <option value="questions" data-i18n="analysisTypeQuestions">
+              ❓ Questions/Réponses
+            </option>
+            <option value="translation" data-i18n="analysisTypeTranslation">
+              🌍 Traduction
+            </option>
+            <option value="explanation" data-i18n="analysisTypeExplanation">
+              💡 Explication simple
+            </option>
+            <option value="custom" data-i18n="analysisTypeCustom">
+              🎨 Personnalisé
+            </option>
+          </select>
+        </div>
+
+        <div id="customPromptContainer" class="custom-prompt-container classic">
+          <label for="customPrompt" data-i18n="customRequestLabel"
+            >Votre demande personnalisée:</label
+          >
+          <textarea
+            id="customPrompt"
+            class="classic"
+            data-i18n-placeholder="customRequestPlaceholder"
+            placeholder="Décrivez ce que vous voulez que Claude fasse avec ce contenu..."
+          ></textarea>
+          <div class="help-text classic" data-i18n="customRequestHelp">
+            💡 Exemple: "Analyse ce contenu du point de vue d'un expert en
+            marketing"
+          </div>
+        </div>
+        <div class="button-group classic">
+          <button id="analyzeBtn" class="primary-btn classic">
+            <span data-i18n="analyzeBtnText">🚀 Analyser</span>
+          </button>
+          <button id="optionsBtn" class="secondary-btn classic">
+            <span data-i18n="options">⚙️ Options</span>
+          </button>
+        </div>
+
+        <!-- Boutons de résultat sur une seule ligne -->
+        <div class="result-buttons-row classic">
+          <button id="copyMarkdownBtn" class="copy-btn classic">
+            Copier en Markdown
+          </button>
+          <button id="copyTextBtn" class="copy-btn classic">
+            Copier en texte brut
+          </button>
+          <button id="continueConversationBtn" class="conversation-btn classic">
+            Ouvrir dans un nouvel onglet
+          </button>
+        </div>
+        <div id="loading" class="loading classic">
+          <div class="spinner classic"></div>
+          <div id="loadingText" data-i18n="analyzingText">
+            Analyse en cours...
+          </div>
+        </div>
+        <div id="summaryContainer" class="result-container classic">
+          <div class="result-header classic">
+            <h3 data-i18n="resultTitle">📝 Résultat de l'analyse</h3>
+          </div>
+          <div id="summaryText" class="result-content classic"></div>
+        </div>
+      </div>
+    </div>
+
+    <script src="logger.js"></script>
+    <script src="version-manager.js"></script>
+    <script src="theme-manager.js"></script>
+    <script src="model-manager.js"></script>
+    <script src="popup-classic.js"></script>
+  </body>
+</html>
