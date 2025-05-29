@@ -531,6 +531,7 @@
             preferences.systemPrompts || {}
           );
         }
+        return preferences;
       } catch (error) {
         logger.error("❌ Erreur chargement préférences:", error);
       }
@@ -632,9 +633,6 @@
       logger.info(
         `✅ ${availableSystemPromptsCount} prompts système disponibles et ${customPrompts.length} prompts personnalisés chargés`
       );
-
-      // Retourner les préférences pour utilisation dans setupAnalysisInterface
-      return preferences;
     }
 
     async function performAnalysis() {
