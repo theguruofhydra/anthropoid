@@ -224,11 +224,6 @@
       logger.info("🎨 Theme selector listener ajouté");
     }
 
-    if (exportLogsBtn) {
-      exportLogsBtn.addEventListener("click", exportLogs);
-      logger.info("📄 Export logs listener ajouté");
-    }
-
     // Event listeners pour la gestion individuelle des prompts
     setupIndividualPromptListeners();
 
@@ -248,6 +243,95 @@
       logger.info(
         `✅ Event listeners ajoutés pour ${restoreButtons.length} boutons de restauration et ${deleteButtons.length} boutons de suppression`
       );
+    }
+
+    async function testClaudeApi() {
+      logger.info("🧪 Test de l'API Claude...");
+
+      const apiKey = claudeApiKeyInput ? claudeApiKeyInput.value.trim() : "";
+
+      if (!apiKey) {
+        showClaudeTestResult(
+          "❌ Veuillez entrer votre clé API Claude",
+          "error"
+        );
+        updateTestButtonState(testApiBtn, "error", "🧪 Test");
+        return;
+      }
+
+      if (!apiKey.startsWith("sk-ant-api")) {
+        showClaudeTestResult(
+          '❌ Format de clé API invalide. La clé doit commencer par "sk-ant-api"',
+          "error"
+        );
+        updateTestButtonState(testApiBtn, "error", "🧪 Test");
+        return;
+      }
+
+      if (testApiBtn) {
+        updateTestButtonState(testApiBtn, "loading", "🔄 Test...");
+      }
+
+      try {
+        const response = await fetch("https://api.anthropic.com/v1/messages", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "x-api-key": apiKey,
+            "anthropic-version": "2023-06-01",
+            "anthropic-dangerous-direct-browser-access": "true",
+          },
+          body: JSON.stringify({
+            model: "claude-3-haiku-20240307",
+            max_tokens: 50,
+            messages: [
+              {
+                role: "user",
+                content: "Bonjour, peux-tu répondre par 'Test réussi!' ?",
+              },
+            ],
+          }),
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          logger.info("✅ Test API Claude réussi:", data);
+          showClaudeTestResult(
+            "✅ API Claude fonctionne correctement!",
+            "success"
+          );
+          updateTestButtonState(testApiBtn, "success", "✅ Test");
+
+          // Sauvegarde automatique si le test réussit
+          await saveApiKeyAutomatically(apiKey);
+        } else {
+          const errorText = await response.text();
+          logger.error("❌ Erreur API Claude:", response.status, errorText);
+          showClaudeTestResult(
+            `❌ Erreur API: ${response.status} ${response.statusText}`,
+            "error"
+          );
+          updateTestButtonState(testApiBtn, "error", "❌ Test");
+        }
+      } catch (error) {
+        logger.error("❌ Erreur connexion Claude:", error);
+        showClaudeTestResult(
+          `❌ Erreur de connexion: ${error.message}`,
+          "error"
+        );
+        updateTestButtonState(testApiBtn, "error", "❌ Test");
+      } finally {
+        // Restaurer le bouton après 3 secondes si pas de succès/erreur
+        setTimeout(() => {
+          if (
+            testApiBtn &&
+            !testApiBtn.classList.contains("test-success") &&
+            !testApiBtn.classList.contains("test-error")
+          ) {
+            updateTestButtonState(testApiBtn, "default", "🧪 Test");
+          }
+        }, 3000);
+      }
     }
 
     async function handleRestorePrompt(event) {
@@ -1392,54 +1476,6 @@
           updateBtn.disabled = false;
           updateBtn.textContent = "🔄 Mettre à jour les modèles";
         }
-      }
-    }
-
-    async function exportLogs() {
-      try {
-        logger.info("📄 Export des logs de debug...");
-
-        if (typeof window.logger !== "undefined" && window.logger) {
-          window.logger.exportLogs();
-          showMessage("✅ Logs exportés vers vos téléchargements!", "success");
-        } else {
-          const debugInfo = {
-            timestamp: new Date().toISOString(),
-            userAgent: navigator.userAgent,
-            url: window.location.href,
-            extension: {
-              name: "Anthropoïd",
-              version:
-                typeof getExtensionVersion !== "undefined"
-                  ? getExtensionVersion()
-                  : "inconnu",
-            },
-            settings: await browserAPI.storage.sync.get([
-              "claudeModel",
-              "summaryLanguage",
-              "theme",
-              "debugMode",
-            ]),
-            note: "Export manuel - Pour un debug complet, activez le mode verbose et reproduisez le problème.",
-          };
-
-          const exportString = JSON.stringify(debugInfo, null, 2);
-          const blob = new Blob([exportString], { type: "application/json" });
-          const url = URL.createObjectURL(blob);
-
-          const a = document.createElement("a");
-          a.href = url;
-          a.download = `Anthropoïd-debug-${Date.now()}.json`;
-          document.body.appendChild(a);
-          a.click();
-          document.body.removeChild(a);
-          URL.revokeObjectURL(url);
-
-          showMessage("✅ Informations de debug exportées!", "success");
-        }
-      } catch (error) {
-        logger.error("❌ Erreur export logs:", error);
-        showMessage(`❌ Erreur lors de l'export: ${error.message}`, "error");
       }
     }
   });
